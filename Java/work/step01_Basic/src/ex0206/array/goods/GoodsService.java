@@ -9,6 +9,12 @@ public class GoodsService{
 	//상품을 관리할 배열 선언
 	private Goods [] goodsArr = new Goods [10];
 	public static int count;//0 배열방에 저장 객체의 개수 
+	
+	public GoodsService(String [][] data) {
+		   for(int i=0;i<data.length;i++) {
+		   goodsArr[count++] = this.create(data[i]);
+	   }
+	}
 
    /**
       초기치 데이터를 세팅하는 메소드
@@ -21,24 +27,24 @@ public class GoodsService{
 			 
 		};
    */
-   public void init(String [][] data){
-	  
-	   for(int i=0;i<data.length;i++) {
-		   goodsArr[count++] = this.create(data[i]);
-	   }
-	   System.out.println("--------초기화 완료--------");
-
-   }//메소드끝
+//   public void init(String [][] data){
+//	  
+//	   for(int i=0;i<data.length;i++) {
+//		   goodsArr[count++] = this.create(data[i]);
+//	   }
+//	   System.out.println("--------초기화 완료--------");
+//
+//   }//메소드끝
 
    /**
       Goods를 생성해서 값을 설정하고 생성된 Goods를 리턴하는 메소드 
    */
    private Goods create(String [] row){//{"A01" , "새우깡" , "2500" , "짜고 맛나다."}
-         Goods goods = new Goods();
-         goods.setCode(row[0]);
-         goods.setName(row[1]);
-         goods.setPrice(Integer.parseInt(row[2]));
-         goods.setExplain(row[3]);
+         Goods goods = new Goods(row);
+//         goods.setCode(row[0]);
+//         goods.setName(row[1]);
+//         goods.setPrice(Integer.parseInt(row[2]));
+//         goods.setExplain(row[3]);
          return goods;
    }
 

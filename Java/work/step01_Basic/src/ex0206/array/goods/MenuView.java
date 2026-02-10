@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class MenuView{
 
  private Scanner sc = new Scanner(System.in);
- private GoodsService service = new GoodsService(); //전역변수 초기화
+ private GoodsService service; //전역변수 초기화
 
   /**
     전체 메뉴를 출력하는 메소드 
@@ -14,7 +14,7 @@ public class MenuView{
   public void printMenu(String [][] data){
 
       //전달 받은 초기치 데이터를 서비스에 전달해서 배열에 저장한다.
-      service.init(data);
+	  service = new GoodsService(data);
 
       //2번을 제외하고는 인자값이 필요하고 각각 출력되어야 하는 게 다르기 때문에 각각 메소드로 만듦
 	  while(true){
@@ -38,7 +38,7 @@ public class MenuView{
 				 this.inputUpdate() ; break;
 			 case 5:
 				 this.inputDeleteCode();
-					break;	
+				 break;	
 			 case 9 : 
 				 System.out.println("다음에 또 이용해ㅜㅈ세요. 프로그램 종료합니다.");
 				 System.exit(0); 
@@ -71,6 +71,7 @@ public class MenuView{
 
 	 //생성자를 추가하여 값을 전달하자(데이터 초기화)
       // Goods goods = new Goods();
+	   
 
 	   int result = service.insert(null);
 
@@ -112,7 +113,7 @@ public class MenuView{
 	   String explain = sc.nextLine();
 
 	   //위 3개의 정보를 하나의 Goods객체로 만든다.
-	   //Goods goods = new Goods(); //생성자를 추가하여 값을 전달하자(데이터 초기화) -> 이거는 쓰지 않음
+	   //Goods goods = new Goods(); //생성자를 추가하여 값을 전달하자(데이터 초기화) 
 	   
 	  
 

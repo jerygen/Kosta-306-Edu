@@ -1,5 +1,9 @@
 package ex0209.array.goods.sol;
 import java.util.Scanner;
+//자꾸 ex0206이랑 겹쳐져서 사용되어서 강제로 import
+import ex0209.array.goods.sol.Goods;
+import ex0209.array.goods.sol.GoodsService;
+import ex0209.array.goods.sol.EndView;
 /**
  키보드 입력을 받아 각 기능을 호출해줄 View
 */

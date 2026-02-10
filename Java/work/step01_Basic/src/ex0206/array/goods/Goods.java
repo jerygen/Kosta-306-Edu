@@ -8,6 +8,15 @@ public class Goods{
 	private int price;//가격 0 
 	private String explain;//설명 null
 	
+	public Goods(String [] data) {
+		this.code = data[0];
+		this.name = data[1];
+		if(Integer.parseInt(data[2])>0) {
+			this.price = Integer.parseInt(data[2]);
+		}
+		this.explain = data[3];
+	}
+	
 	//setXxx
 	public void setCode(String code) {
 		this.code = code;
