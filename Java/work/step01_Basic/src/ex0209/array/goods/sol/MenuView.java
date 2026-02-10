@@ -71,6 +71,7 @@ public class MenuView{
 	   String explain = sc.nextLine();
 
        Goods goods = new Goods();
+       //여기를 고려해서 고쳐야 함
        goods.setCode(code);
        goods.setName(name);
        goods.setPrice(price);
@@ -120,6 +121,7 @@ public class MenuView{
 	   //위 3개의 정보를 하나의 Goods객체로 만든다.
 	   Goods goods = new Goods();
 	   
+	   //여기를 고려해서 고쳐야 함
 	   goods.setCode(code);
        goods.setPrice(price);
        goods.setExplain(explain);
