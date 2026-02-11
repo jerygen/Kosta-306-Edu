@@ -1,4 +1,4 @@
-package ex0206.array.goods;
+package ex0211.enum_test.goods;
 
 /**
   각 요청에 대한 로직(기능)을 담당할 클래스
@@ -53,25 +53,26 @@ public class GoodsService{
 
    /**
      등록(등록실패 - 중복인경우, 배열의 길이 벗어난경우)
+     enum 타입으로 정의
 	 @return : 
 			 0이면 상품코드 중복 ,
 			 1이면 등록성공, 
 			 -1이면 배열의 길이 벗어남
    */
-   public int insert(Goods goods){
+   public InsertResult insert(Goods goods){
 
 	   // 배열의 길이 체크
 	   if(goodsArr.length==GoodsService.count) {
-		   return -1;
+		   return InsertResult.INSERT_OUTINDEX;
 	   }
 
 	   //중복체크 
 	   if(this.selectByCode(goods.getCode())!=null) {
-		   return 0;
+		   return InsertResult.INSERT_DUPLICATE;
 	   }
 	   //중복이 아니라면 새로 등록하기
 	   goodsArr[GoodsService.count++] = goods;
-	   return 1;
+	   return InsertResult.INSERT_SUCCESS;
    }
 
    /**

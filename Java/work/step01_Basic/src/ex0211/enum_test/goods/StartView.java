@@ -1,4 +1,4 @@
-package ex0206.array.goods;
+package ex0211.enum_test.goods;
 
 public class  StartView{
 	public static void main(String[] args) {

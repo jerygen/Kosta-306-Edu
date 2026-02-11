@@ -1,4 +1,4 @@
-package ex0206.array.goods;
+package ex0211.enum_test.goods;
 /**
   상품으로 속성을 관리하는 개체
 */
