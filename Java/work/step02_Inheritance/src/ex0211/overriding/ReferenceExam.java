@@ -24,6 +24,7 @@ class ReferenceExam{
 			
 			ObjectExam oe1=new ObjectExam("진짜 갈려고?");
 			ObjectExam oe2=new ObjectExam("안녕");
+			
 			/**
 			 * print(Object obj) or println(Object obj) 메소드는
 			 * 인수전달 된 객체 .toString()을 호출한다. 
