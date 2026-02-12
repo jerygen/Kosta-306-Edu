@@ -1,8 +1,9 @@
 package ex0211.sample02;
 
+
 public class FullTime extends Employee {
-	int salary;
-	int bonus;
+	private int salary;
+	private int bonus;
 	
 	public FullTime() {}
 	public FullTime(int empNo, String eName, String job, int mgr, 

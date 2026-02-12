@@ -1,7 +1,7 @@
 package ex0211.sample02;
 
 public class PartTime extends Employee {
-	int timePay;
+	private int timePay;
 	
 	public PartTime(){}
 	public PartTime(int empNo, String eName, String job, int mgr, 

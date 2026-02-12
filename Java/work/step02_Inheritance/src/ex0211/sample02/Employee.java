@@ -1,12 +1,12 @@
 package ex0211.sample02;
 
 public class Employee {
-	int empNo;
-	String eName;
-	String job;
-	int mgr;
-	String hiredate;
-	String deptName;
+	protected int empNo;
+	protected String eName; //setEName getEName 으로 하면 안 됨
+	protected String job;
+	protected int mgr;
+	protected String hiredate;
+	protected String deptName;
 	
 	public Employee() {}
 	public Employee(int empNo, String eName, String job, int mgr, 

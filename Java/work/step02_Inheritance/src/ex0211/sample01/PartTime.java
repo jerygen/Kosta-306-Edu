@@ -1,13 +1,13 @@
 package ex0211.sample01;
 
 public class PartTime {
-	int empNo;
-	String eName;
-	String job;
-	int mgr;
-	String hiredate;
-	String deptName;
-	int timePay;
+	private int empNo;
+	private String eName;
+	private String job;
+	private int mgr;
+	private String hiredate;
+	private String deptName;
+	private int timePay;
 	
 	public PartTime() {}
 	public PartTime(int empNo, String eName, String job, int mgr, 
