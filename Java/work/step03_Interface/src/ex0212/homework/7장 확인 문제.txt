@@ -1,0 +1,27 @@
+1 -> 1번, 자바는 다중 상속을 허용한다.
+
+2 -> 2번, 부모 객체는 어떤 자식 타입으로도 강제 타입 변환된다.
+
+3 -> 1번, final 클래스는 부모 클래스로 사용할 수 없다.
+
+4 -> 4번, protected 접근 제한을 갖는 메소드는 다른 패키지의 자식 클래스에서 재정의할 수 없다.
+
+5 -> 2번, 추상 메소드를 반드시 가져야 한다.
+
+6 -> 부모 클래스에 정의된 name필드를 가져오려면 this가 아니라 super를 사용해야 한다. super(name);으로 호출
+
+7 -> 1. Parent(String nation) Call 
+      2. Parent() Call
+      3. Child(String name) Call
+      4. Child() Call
+
+8 -> 스노우 타이어가 굴러갑니다
+       스노우 타이어가 굴러갑니다.
+
+9 -> 2번, (B) new A()
+
+10 -> abstract 클래스를 상속받을 때는 abstract 메소드를 반드시 재정의해야 한다.
+
+11 -> super
+
+12 -> a instanceof C c
