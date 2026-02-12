@@ -20,20 +20,27 @@ public class MainApp {
 		
 		
 		System.out.println("------------------Emp정보-----------------");
-		System.out.println(emp[0]);
-		System.out.println(emp[1]);
-		System.out.println(emp[2]);
+//		System.out.println(emp[0]);
+//		System.out.println(emp[1]);
+//		System.out.println(emp[2]);
+//		
+//		System.out.println(emp[3]);
+//		System.out.println(emp[4]);
 		
-		System.out.println(emp[3]);
-		System.out.println(emp[4]);
+		for(Employee em:emp) {
+			System.out.println(em);
+		}
 		System.out.println("------------------Message-----------------");
 		//재정의된 메소드는 부모 객체를 활용해서 불러도 자식 객체의 재정의된 메소드를 가져온다.
-		emp[0].message();//FullTime message()
-		emp[1].message();
-		emp[2].message();
-		
-		emp[3].message();//PartTime message()
-		emp[4].message();
+		for(Employee em: emp) {
+			em.message();
+		}
+//		emp[0].message();//FullTime message()
+//		emp[1].message();
+//		emp[2].message();
+//		
+//		emp[3].message();//PartTime message()
+//		emp[4].message();
 		
 //		Employee [] full = new FullTime[3];
 //		Employee [] part = new PartTime[2];

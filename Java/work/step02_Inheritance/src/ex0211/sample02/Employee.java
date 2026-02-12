@@ -1,12 +1,12 @@
 package ex0211.sample02;
 
-public class Employee {
-	protected int empNo;
-	protected String eName; //setEName getEName 으로 하면 안 됨
-	protected String job;
-	protected int mgr;
-	protected String hiredate;
-	protected String deptName;
+public abstract class Employee {
+	private int empNo;
+	private String eName; //setEName getEName 으로 하면 안 됨
+	private String job;
+	private int mgr;
+	private String hiredate;
+	private String deptName;
 	
 	public Employee() {}
 	public Employee(int empNo, String eName, String job, int mgr, 
@@ -19,12 +19,25 @@ public class Employee {
 		this.deptName = deptName;
 	}
 	
-	public void message() {
-		 System.out.println(eName+"은 사원입니다.");
-	}
+	public abstract void message();
 	
+	@Override
 	public String toString() {
-		return empNo+" | "+eName+" | "+job+" | "+mgr+" | "+hiredate+" | "+deptName;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Employee [empNo=");
+		builder.append(empNo);
+		builder.append(", eName=");
+		builder.append(eName);
+		builder.append(", job=");
+		builder.append(job);
+		builder.append(", mgr=");
+		builder.append(mgr);
+		builder.append(", hiredate=");
+		builder.append(hiredate);
+		builder.append(", deptName=");
+		builder.append(deptName);
+		builder.append(", ");
+		return builder.toString();
 	}
 	
 	public int getEmpNo() {
