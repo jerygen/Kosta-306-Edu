@@ -24,4 +24,4 @@
 
 11 -> super
 
-12 -> a instanceof C c
+12 -> a instanceof C
