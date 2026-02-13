@@ -2,6 +2,7 @@ package ex0212.Interface_home;
 
 public class Audio extends Elec implements ElecFunction {
 	private int volumn;
+	
 	public Audio() {}
 	public Audio(int volumn) {
 		this.volumn=volumn;
