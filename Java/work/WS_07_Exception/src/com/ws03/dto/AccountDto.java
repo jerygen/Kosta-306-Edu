@@ -3,7 +3,7 @@ package com.ws03.dto;
 /**
  * 고객의 계좌정보 관리하는 객체
  */
-public class AccountDto {
+public class AccountDto implements Comparable<AccountDto>{
 	private int accountSeq;
 	private String accountNumber;
 	private int balance;
@@ -48,12 +48,12 @@ public class AccountDto {
 
 	public void setUserSeq(int userSeq) {
 		this.userSeq = userSeq;
-	}
-
+	}	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("AccountDto [accountSeq=");
+		builder.append("[accountSeq=");
 		builder.append(accountSeq);
 		builder.append(", accountNumber=");
 		builder.append(accountNumber);
@@ -61,8 +61,14 @@ public class AccountDto {
 		builder.append(balance);
 		builder.append(", userSeq=");
 		builder.append(userSeq);
-		builder.append("]");
+		builder.append(", ");
 		return builder.toString();
+	}
+
+	@Override
+	public int compareTo(AccountDto o) {
+		
+		return userSeq-o.getUserSeq();
 	}
 	
 	

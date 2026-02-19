@@ -9,32 +9,38 @@ import java.util.Collections;
 import java.util.List;
 
 import com.ws03.dto.AccountDto;
+import com.ws03.dto.InstallAccountDto;
+import com.ws03.dto.LoanAccountDto;
+import com.ws03.dto.SavingAccountDto;
 import com.ws03.dto.UserDto;
 
 public class BankService {	
 	/**
 	 * 생성자에서 테스트를 위한 고객 및 계좌 리스트 객체 생성
 	 * */
-	List<UserDto> userList = new ArrayList<>();
-	List<AccountDto> accountList = new ArrayList<>();
+	List<UserDto> userList;
+	List<AccountDto> accountList;
 	
 	public BankService() {
-		//고객 4명
-		userList.add(new UserDto(100, "장희정", "8253jang@daum.net", "010-8875-8253", false));
-		userList.add(new UserDto(200, "이효리", "lee@daum.net", "010-2222-3333", false));
-		userList.add(new UserDto(300, "송중기", "song@naver.com", "010-5554-2222", false));
-		userList.add(new UserDto(400, "삼순이", "sam@daum.com", "010-2222-2222", false));
-			 
-		//계좌 6개
-		accountList.add(new AccountDto(1, "1111-11111", 1000000, 100));
-		accountList.add(new AccountDto(2, "2222-22222", 250000, 100));
-		accountList.add(new AccountDto(3, "3333-33333", 350000, 100));
-		accountList.add(new AccountDto(4, "4444-44444", 150000, 200));
-		accountList.add(new AccountDto(5, "5555-55555", 250000, 200));
-		accountList.add(new AccountDto(6, "6666-66666", 350000, 300));
-		System.out.println("---세팅완료!!----");
-		 	 
-	}//생성자 끝
+        userList = new ArrayList<UserDto>(); 
+		accountList = new ArrayList<AccountDto>(); 
+
+		userList.add( new UserDto(111, "홍길동", "hong@gildong@com", "010-1111-1111", false) );
+		userList.add( new UserDto(222, "이길동", "lee@gildong@com", "010-2222-2222", true) );
+		userList.add( new UserDto(333, "삼길동", "sam@gildong@com", "010-3333-3333", false) );
+		
+		accountList.add( new InstallAccountDto(20, "00200202002002", 1000, 111, 12, 10000) );
+		
+		accountList.add( new SavingAccountDto(10, "00100101001001", 500, 111, 100) );
+		
+		accountList.add( new LoanAccountDto(60, "00600606006006", 500, 333, "House") );
+		accountList.add( new LoanAccountDto(30, "00300303003003", 0, 111, "Building") );
+		
+		accountList.add( new SavingAccountDto(70, "00700707007007", 500, 333, 200) );
+		
+		accountList.add( new LoanAccountDto(50, "00500505005005", 200, 222, "Car") );
+		accountList.add( new SavingAccountDto(40, "00400404004004", 1000, 222, 50) );
+	}
 	
     /**
 	  특정 사용자의 계좌 목록을 배열로 리턴 하는 메소드를 작성한다
@@ -92,7 +98,7 @@ public class BankService {
 	
 	public List<AccountDto> getAccountListSortByUserSeq(){
 		List<AccountDto> shallowCopy = new ArrayList<>(accountList);
-		Collections.sort(shallowCopy, (e1, e2)->e1.getUserSeq()-e2.getUserSeq());
+		Collections.sort(shallowCopy);
 		return shallowCopy;
 	}
 

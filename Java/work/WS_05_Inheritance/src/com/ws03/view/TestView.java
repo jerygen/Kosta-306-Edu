@@ -9,10 +9,10 @@ import com.ws03.service.BankService;
 public class TestView {
 
 	public static void main(String[] args) {
-		System.out.println("***1. 고객 seq 100 에 해당하는 계좌정보 검색하기 *****");
+		System.out.println("***1. 고객 seq 111 에 해당하는 계좌정보 검색하기 *****");
 		BankService service = new BankService();
 		
-        List<AccountDto> accountList = service.getAccountList(100);
+        List<AccountDto> accountList = service.getAccountList(111);
 		
 		if(accountList==null) {
 			System.out.println("회원의 계좌정보가 없습니다. ");
@@ -27,7 +27,7 @@ public class TestView {
 		
 
 		System.out.println("\n\n***2. userSeq에  해당하는 고객의 정보 *************");
-		UserDto userDto = service.getUserDetail(300);//300 userSeq
+		UserDto userDto = service.getUserDetail(333);//300 userSeq
 		if(userDto!= null) {
 		  System.out.print(userDto.getUserSeq() +" , " + userDto.getName()+" , " + 
 		            userDto.getEmail()+" , ");
