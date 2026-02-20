@@ -3,8 +3,10 @@ package mvc.controller;
 import java.util.List;
 
 import mvc.dto.Electronics;
+import mvc.exception.SearchNotFoundException;
 import mvc.service.ElectronicsService;
 import mvc.service.ElectronicsServiceImpl;
+import mvc.view.FailView;
 import mvc.view.SuccessView;
 
 
@@ -33,7 +35,7 @@ public class ElectronicsController {
      */
    
     public void insert(Electronics electronics) {
-       
+       service.insert(electronics);
     }
     
     
@@ -43,7 +45,11 @@ public class ElectronicsController {
      * @param modelNo
      */
     public void searchByModelNo(int modelNo) {
-    	
+    	try{
+    		SuccessView.printSearchByModelNo(service.searchByModelNo(modelNo));
+    	}catch(SearchNotFoundException e){
+    		FailView.errorMessage(e.getMessage());
+    	}
     } 
 
     /**

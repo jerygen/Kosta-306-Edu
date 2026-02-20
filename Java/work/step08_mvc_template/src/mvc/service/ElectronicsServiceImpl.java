@@ -52,7 +52,11 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 	@Override
 	public void insert(Electronics electronics) 
 			  throws ElectronicsArrayBoundsException, DuplicateModelNoException {
-		
+		for(Electronics elec : list) {
+			if(elec.getModelNo()==electronics.getModelNo()) {
+				
+			}
+		}
 	}
 
 	@Override
@@ -62,8 +66,12 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 
 	@Override
 	public Electronics searchByModelNo(int modelNo) throws SearchNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		for(Electronics e: list) {
+			if(e.getModelNo()==modelNo) {
+				return e;
+			}
+		}
+		throw new SearchNotFoundException("해당 번호의 상품이 없습니다.");
 	}
 
 	@Override

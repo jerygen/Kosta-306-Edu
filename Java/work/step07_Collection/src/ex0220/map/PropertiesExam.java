@@ -28,7 +28,18 @@ public class PropertiesExam {
 	 * 1) IO를 이용한 방법
 	 * 2) ResourceBundle을 이용한 방법
 	 * 
-	 * -> this.get
+	 * 1. this.getClass().getResourceAsStream("info.properties") 
+		    -> 현재 클래스가 있는 위에서부터 경로를 설정
+		
+		2. this.getClass().getClassLoader().getResourceAsStream("a.properties"); 
+		   -> this.getClass() 호출하면 classes폴더를 기준(bin)으로 경로를 잡는다.
+		
+		3. 프로젝트 내 resources폴더 존재 ==> 정적문서(환경설정문서, schema, xml 문서)
+		
+		
+		웹프로젝트 
+		  1) back - resources
+		  2) front  - resources/css, js,img
 	 * */
 	
 	//1) IO를 이용한 방법
