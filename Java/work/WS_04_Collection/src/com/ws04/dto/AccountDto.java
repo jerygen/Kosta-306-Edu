@@ -1,13 +1,12 @@
-package com.ws03.dto;
-
+package com.ws04.dto;
 /**
  * 고객의 계좌정보 관리하는 객체
  */
-public class AccountDto {
-	private int accountSeq; //PK
+public class AccountDto implements Comparable<AccountDto>{
+	private int accountSeq;
 	private String accountNumber;
 	private int balance;
-	private int userSeq; //FK
+	private int userSeq;
 
 	public AccountDto() {}
 
@@ -48,6 +47,27 @@ public class AccountDto {
 
 	public void setUserSeq(int userSeq) {
 		this.userSeq = userSeq;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("AccountDto [accountSeq=");
+		builder.append(accountSeq);
+		builder.append(", accountNumber=");
+		builder.append(accountNumber);
+		builder.append(", balance=");
+		builder.append(balance);
+		builder.append(", userSeq=");
+		builder.append(userSeq);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	@Override
+	public int compareTo(AccountDto o) {
+		
+		return balance-o.getBalance();
 	}
 
 }
