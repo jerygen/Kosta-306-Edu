@@ -120,7 +120,7 @@ public class BankService {
 		Collections.sort(shallowCopy, (e1, e2)->e1.getUserSeq()-e2.getUserSeq());
 		//삼항식 구조, 조건식 ? 참 : 거짓
 		//Collections.sort(shallowCopy, (e1, e2)->e1.getUserSeq()==e2.getUserSeq() ? 
-		//		e2.getBalance()-e1.getBalance(): e1.getBalance()-e2.getBalance());
+		//		e2.getBalance()-e1.getBalance(): e1.getUserSeq()-e2.getUserSeq());
 		return shallowCopy;
 	}
 

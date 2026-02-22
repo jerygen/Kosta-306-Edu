@@ -1,6 +1,7 @@
 package mvc.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -52,11 +53,15 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 	@Override
 	public void insert(Electronics electronics) 
 			  throws ElectronicsArrayBoundsException, DuplicateModelNoException {
+		if(list.size()>MAX_SIZE) {
+			throw new ElectronicsArrayBoundsException("등록할 수 있는 상품의 개수를 초과했습니다.");
+		}
 		for(Electronics elec : list) {
 			if(elec.getModelNo()==electronics.getModelNo()) {
-				
+				throw new DuplicateModelNoException("같은 상품 번호의 상품이 있습니다.");
 			}
 		}
+		list.add(electronics);
 	}
 
 	@Override
@@ -76,20 +81,21 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 
 	@Override
 	public void update(Electronics electronics) throws SearchNotFoundException {
-		// TODO Auto-generated method stub
-		
+		Electronics e = searchByModelNo(electronics.getModelNo());
+		e.setModelDetail(electronics.getModelDetail());
 	}
 
 	@Override
 	public void delete(int modelNo) throws SearchNotFoundException {
-		// TODO Auto-generated method stub
-		
+		list.remove(searchByModelNo(modelNo));
 	}
 
 	@Override
 	public List<Electronics> selectSortByPrice() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Electronics> shallowCopy = new ArrayList<>(list);
+		Collections.sort(shallowCopy, (e1, e2)-> e1.getModelPrice()==e2.getModelPrice() ?
+				e1.getModelNo()-e2.getModelNo() : e1.getModelPrice()-e2.getModelPrice());
+		return shallowCopy;
 	}
     
 } // 클래스 끝 

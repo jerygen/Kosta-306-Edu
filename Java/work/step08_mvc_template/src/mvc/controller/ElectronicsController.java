@@ -3,6 +3,8 @@ package mvc.controller;
 import java.util.List;
 
 import mvc.dto.Electronics;
+import mvc.exception.DuplicateModelNoException;
+import mvc.exception.ElectronicsArrayBoundsException;
 import mvc.exception.SearchNotFoundException;
 import mvc.service.ElectronicsService;
 import mvc.service.ElectronicsServiceImpl;
@@ -35,7 +37,13 @@ public class ElectronicsController {
      */
    
     public void insert(Electronics electronics) {
-       service.insert(electronics);
+    	try {
+    		service.insert(electronics);
+    		SuccessView.printMessage("상품 등록이 완료됐습니다.");
+    	}catch(ElectronicsArrayBoundsException | DuplicateModelNoException e ) {
+    		FailView.errorMessage(e.getMessage());
+    	}
+       
     }
     
     
@@ -57,7 +65,12 @@ public class ElectronicsController {
      * @param electronics
      */
     public void update(Electronics electronics) {
-    	
+    	try {
+    		service.update(electronics);
+    		SuccessView.printMessage("상품 설명이 수정됐습니다.");
+    	}catch(SearchNotFoundException e) {
+    		FailView.errorMessage(e.getMessage());
+    	}
     }
     
     /**
@@ -65,7 +78,12 @@ public class ElectronicsController {
      * @param electronics
      */
 	public void deleteModelNo(int modelNo) {
-		
+		try {
+			service.delete(modelNo);
+			SuccessView.printMessage("상품이 삭제됐습니다.");
+		}catch(SearchNotFoundException e) {
+			FailView.errorMessage(e.getMessage());
+		}
 	}
 	
 	/**
@@ -74,7 +92,7 @@ public class ElectronicsController {
      * @return
      */
     public void selectSortByPrice() {
-    	
+    	SuccessView.printAll(service.selectSortByPrice());
     }
     
 }
