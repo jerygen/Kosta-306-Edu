@@ -27,10 +27,10 @@ public class ElectronicsServiceImpl implements ElectronicsService {
      * 외부에서 객체 생성안됨. 
      * InitInfo.properties파일을 로딩하여  List에 추가하여
      * 초기치 데이터를 만든다.
-     * 
+     * 리스트를 저장한 파일이 존재하는지 여부에 따라서 InitInfo.properties 읽을지, 역직렬화를 할 지 결정
+     * if(객체를 파일에 저장한 파일이 존재한다면) else(getBundle)
      */
-    private ElectronicsServiceImpl() {//싱글톤 패턴으로 만들어서 사용
-    	System.out.println("**private constructor init.....");
+    private ElectronicsServiceImpl() {
     	//실제 배포할 때에는 resources 폴더가 안 들어간다. 따라서 classes를 기준으로 해서 가져오는 것이 중요
     	ResourceBundle rb = ResourceBundle.getBundle("InitInfo");//InitInfo.properties
         for(String key : rb.keySet()) {
@@ -40,7 +40,6 @@ public class ElectronicsServiceImpl implements ElectronicsService {
      	  
      	    list.add(new Electronics( Integer.parseInt(data[0]) ,data[1],   
      	    	 Integer.parseInt( data[2]), data[3]) );
-     	  
         }
         
         System.out.println(list);
@@ -58,12 +57,6 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 		if(list.size()>MAX_SIZE) {
 			throw new ElectronicsArrayBoundsException("등록할 수 있는 상품의 개수를 초과했습니다.");
 		}
-		/*for(Electronics elec : list) {
-			if(elec.getModelNo()==electronics.getModelNo()) {
-				throw new DuplicateModelNoException("같은 상품 번호의 상품이 있습니다.");
-			}
-		}
-		list.add(electronics);*/
 		
 		//모델 번호 중복 체크, 찾는 게 있으면 안 되는 상황
 		//searchByModelNo를 사용해라.
@@ -75,7 +68,7 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 			this.searchByModelNo(electronics.getModelNo());
 			throw new DuplicateModelNoException(electronics.getModelNo()+"는 이미 존재합니다.");
 		}catch(SearchNotFoundException e) {
-			//예외가 발생했다는 것이 중복이 아니다라는 것을 뜻함.
+			//예외가 발생했다는 것이 중복이 아니다라는 것을 뜻 함.
 			list.add(electronics);
 		}
 		
@@ -108,11 +101,19 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 	}
 
 	@Override
+	public void saveObject() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public List<Electronics> selectSortByPrice() {//Functional Interface를 람다식으로 표현
 		List<Electronics> sortList = new ArrayList<>(list);//원본 복사
 		Collections.sort(sortList, (e1, e2)-> e1.getModelPrice()==e2.getModelPrice() ?
 				e1.getModelNo()-e2.getModelNo() : e1.getModelPrice()-e2.getModelPrice());
 		return sortList;
 	}
+	
+	
     
 } // 클래스 끝 
