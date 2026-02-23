@@ -95,6 +95,12 @@ public class ElectronicsController {
     	SuccessView.printAll(service.selectSortByPrice());
     }
     
+    /**
+     * 리스트 데이터를 파일로 저장한다.
+     * */
+    public void saveList() {
+    	
+    }
 }
 
 

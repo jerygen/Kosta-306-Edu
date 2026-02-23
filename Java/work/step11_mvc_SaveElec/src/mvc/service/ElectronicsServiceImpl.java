@@ -31,16 +31,19 @@ public class ElectronicsServiceImpl implements ElectronicsService {
      * if(객체를 파일에 저장한 파일이 존재한다면) else(getBundle)
      */
     private ElectronicsServiceImpl() {
-    	//실제 배포할 때에는 resources 폴더가 안 들어간다. 따라서 classes를 기준으로 해서 가져오는 것이 중요
-    	ResourceBundle rb = ResourceBundle.getBundle("InitInfo");//InitInfo.properties
-        for(String key : rb.keySet()) {
-        	String value =  rb.getString(key); //100,\uC120\uD48D\uAE30,35000,\uC0BC\uC131 \uC120\uD48D\uAE30
-     	   	String data[] = value.split(",");
-     	   	//System.out.println(key +" = " + value);
-     	  
-     	    list.add(new Electronics( Integer.parseInt(data[0]) ,data[1],   
-     	    	 Integer.parseInt( data[2]), data[3]) );
-        }
+    	if() {
+    		
+    	}else {
+    		ResourceBundle rb = ResourceBundle.getBundle("InitInfo");//InitInfo.properties
+            for(String key : rb.keySet()) {
+            	String value =  rb.getString(key); //100,\uC120\uD48D\uAE30,35000,\uC0BC\uC131 \uC120\uD48D\uAE30
+         	   	String data[] = value.split(",");
+         	   	//System.out.println(key +" = " + value);
+         	  
+         	    list.add(new Electronics( Integer.parseInt(data[0]) ,data[1],   
+         	    	 Integer.parseInt( data[2]), data[3]) );
+            }
+    	}
         
         System.out.println(list);
       
