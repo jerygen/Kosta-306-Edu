@@ -1,5 +1,8 @@
 package mvc.service;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,7 +108,12 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 
 	@Override
 	public void saveObject() {
-		// TODO Auto-generated method stub
+		try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/mvc/data/data.txt"));) {
+			os.writeObject(list);
+		}catch(Exception e) {
+			
+		}
+		
 		
 	}
 
