@@ -98,8 +98,13 @@ public class ElectronicsController {
     /**
      * 리스트 데이터를 파일로 저장한다.
      * */
-    public void saveList() {
-    	
+    public void saveObject() {
+    	try {
+    	service.saveObject();
+    		SuccessView.printMessage("데이터를 정상적으로 저장했습니다.");
+    	}catch(Exception e) {
+    		FailView.errorMessage("데이터를 저장하지 못했습니다.");
+    	}
     }
 }
 

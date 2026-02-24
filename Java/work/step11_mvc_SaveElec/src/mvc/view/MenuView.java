@@ -38,14 +38,14 @@ public class MenuView{
 	                 this.inputUpdate();
 				   break;
 				   case "5" : 
-		                 this.inputDelete();
-		                 break;
+		                this.inputDelete();
+		                break;
 				   case "6" : 
 					   controller.selectSortByPrice();
 					   break;
 				   case "9" : 
 					   //파일 저장 -> controller -> service
-					   
+					   controller.saveObject();
 	                 System.exit(0);
 				   default:
 					   System.out.println("메뉴를 다시 선택해주세요!!!!");

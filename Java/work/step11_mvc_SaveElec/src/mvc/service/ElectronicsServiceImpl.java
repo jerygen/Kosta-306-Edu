@@ -1,7 +1,11 @@
 package mvc.service;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +29,8 @@ public class ElectronicsServiceImpl implements ElectronicsService {
     private static final int MAX_SIZE=10;
     List<Electronics> list = new ArrayList<Electronics>();
     
+    private File file;
+    
     
     /** 
      * 외부에서 객체 생성안됨. 
@@ -34,18 +40,32 @@ public class ElectronicsServiceImpl implements ElectronicsService {
      * if(객체를 파일에 저장한 파일이 존재한다면) else(getBundle)
      */
     private ElectronicsServiceImpl() {
-    	if() {
-    		
-    	}else {
-    		ResourceBundle rb = ResourceBundle.getBundle("InitInfo");//InitInfo.properties
-            for(String key : rb.keySet()) {
-            	String value =  rb.getString(key); //100,\uC120\uD48D\uAE30,35000,\uC0BC\uC131 \uC120\uD48D\uAE30
-         	   	String data[] = value.split(",");
-         	   	//System.out.println(key +" = " + value);
-         	  
-         	    list.add(new Electronics( Integer.parseInt(data[0]) ,data[1],   
-         	    	 Integer.parseInt( data[2]), data[3]) );
-            }
+    	System.out.println("user.dir = "+System.getProperty("user.dir")); //사용자의 디렉터리
+    	System.out.println("user.home = "+System.getProperty("user.home"));
+    	String path = System.getProperty("user.dir")+"/save.txt";
+    	file = new File(path);
+    	try {
+	    	if(file.exists()) {
+	    		System.out.println(1);
+	    		try(ObjectInputStream ois = 
+	    				new ObjectInputStream(new BufferedInputStream(
+	    						new FileInputStream(file)))){
+	    			Object obj = ois.readObject();
+	    			if(obj instanceof List) {
+	    				list = (List<Electronics>) obj;
+	    			}
+	    		}
+	    	}else {
+	    		ResourceBundle rb = ResourceBundle.getBundle("InitInfo");//InitInfo.properties
+	            for(String key : rb.keySet()) {
+	            	String value =  rb.getString(key); //100,\uC120\uD48D\uAE30,35000,\uC0BC\uC131 \uC120\uD48D\uAE30
+	         	   	String data[] = value.split(",");
+	         	    list.add(new Electronics( Integer.parseInt(data[0]) ,data[1],   
+	         	    	 Integer.parseInt( data[2]), data[3]) );
+	            }
+	    	}
+    	}catch(Exception e) {
+    		e.getMessage();
     	}
         
         System.out.println(list);
@@ -107,14 +127,10 @@ public class ElectronicsServiceImpl implements ElectronicsService {
 	}
 
 	@Override
-	public void saveObject() {
-		try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/mvc/data/data.txt"));) {
+	public void saveObject() throws Exception {
+		try(ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream( new FileOutputStream(file)));) {
 			os.writeObject(list);
-		}catch(Exception e) {
-			
-		}
-		
-		
+		}		
 	}
 
 	@Override
