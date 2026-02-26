@@ -17,9 +17,8 @@ public class Test10 {
                  new Student("현솔", 25, 81.7, "Physics")
         );
 
-        
-        
-
+        boolean re = students.stream().anyMatch(s->s.getMajor().equals("Computer Science"));       
+        System.out.println("전공이 'Computer Science'인 학생이 한 명이라도 있는가 = "+ re);
 
 
     }

@@ -22,9 +22,6 @@ public class Test07 {
         students.stream()
         	.map(s->s.getMajor()+": "+s.getScore()).collect(Collectors.toList());
         	
-
-        	
-
        System.out.println(list);
 
 

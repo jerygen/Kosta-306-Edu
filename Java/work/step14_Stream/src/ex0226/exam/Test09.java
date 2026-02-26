@@ -10,19 +10,15 @@ import java.util.stream.Collectors;
  * */
 public class Test09 {
     public static void main(String[] args) {
-        List<Student> students = Arrays.asList(
+    	List<Student> students = Arrays.asList(
         		 new Student("희정", 22, 88.5, "Computer Science"),
                  new Student("가현", 24, 76.2, "Mathematics"),
                  new Student("찬범", 23, 92.3, "Computer Science"),
                  new Student("현솔", 25, 81.7, "Physics")
         );
-
-        
-       
-
-
-
-
+    	
+    	boolean re = students.stream().allMatch(s->s.getScore()>=70);
+    	System.out.println("모든 학생이 70점 이상인가 = "+re);
 
     }
 }
