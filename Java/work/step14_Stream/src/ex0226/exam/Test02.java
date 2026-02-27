@@ -19,9 +19,10 @@ public class Test02 {
 
         Student st = students.stream()
         		.max(Comparator.comparingInt(Student::getAge))
-        		.orElse(null);
+        		.orElse(null); //ifPresent(s->syso("가장 나이많은 학생: "+st);
         		
         System.out.println("나이가 가장 많은 학생: "+st);
 
+        
     }
 }

@@ -1,8 +1,6 @@
 package ex0226.exam;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 모든 학생이 70점 이상인지 확인 (allMatch)
@@ -18,6 +16,7 @@ public class Test09 {
         );
     	
     	boolean re = students.stream().allMatch(s->s.getScore()>=70);
+    	
     	System.out.println("모든 학생이 70점 이상인가 = "+re);
 
     }

@@ -15,10 +15,12 @@ public class Test01 {
             new Student("현솔", 25, 81.7, "Physics")
         );
 
-        OptionalDouble re =students.stream()
-        	.filter( s->s.getMajor().equals("Computer Science"))
+        Double re =students.stream()
+        	.filter( s->"Computer Science".equals(s.getMajor()))
         	.mapToDouble(Student::getScore)
-        	.average();
+        	.average()
+        	.orElse(0.0);
+        	
 
        System.out.println("Computer Science 전공 평균 점수: " + re);
     }

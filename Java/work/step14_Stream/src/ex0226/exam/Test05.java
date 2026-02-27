@@ -18,7 +18,9 @@ public class Test05 {
         );
 
         
-        String list = students.stream().map(Student::getName).collect(Collectors.joining(", "));
+        String list = students.stream()
+        		.map(Student::getName)
+        		.collect(Collectors.joining(", "));
        
         System.out.println(list);
 

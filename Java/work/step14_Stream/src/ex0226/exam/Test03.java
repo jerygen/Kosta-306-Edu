@@ -16,8 +16,9 @@ public class Test03 {
                  new Student("현솔", 25, 81.7, "Physics")
         );
 
-        List<Student> list = students.stream().filter(s->s.getScore()>=80).collect(Collectors
-        		.toList());
+        List<Student> list = students.stream()
+        		.filter(s->s.getScore()>=80)
+        		.collect(Collectors.toList());
         list.forEach(System.out::println);
 
     }
