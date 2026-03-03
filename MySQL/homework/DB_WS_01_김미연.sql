@@ -1,5 +1,5 @@
-create database school;
-use school;
+create database ex0227;
+use ex0227;
 
 create table course(
 	course_code varchar(5) primary key,
