@@ -2,8 +2,6 @@
 create database ex0303;
 USE ex0303;
 
-drop table emp;
-
 -- emp 테이블 생성
 Create Table emp(
 	emp_id 	   INT Primary Key, -- 사원번호
@@ -12,7 +10,7 @@ Create Table emp(
 	dept_id  	  INT, -- 부서번호
 	sal 	              INT Not Null,-- 급여
 	bonus	              INT,-- 보너스
-	mgr_id	              INT,-- 관리자번호
+	mgr_id	              INT,-- 관리자번호 -- self join 가능
 	hiredate             date  Not Null -- 입사일
 );
 
@@ -41,11 +39,20 @@ SELECT * FROM EMP;
    sal ,- 급여, bonus - 보너스,  mgr_id - 관리자번호 , hiredate - 입사일*/
 
 -- 1. emp 테이블에서 각 사원 emp_name의 급여(sal)에 100을 더한 후 12를 곱한 값이 출력되도록  select절에 산술식을 사용해보세요.(별칭- 년봉 )
-select emp_id, emp_name, sal, (sal+100)*12 as 년봉 from emp;
+select emp_id, emp_name, sal, ( nullif(sal,0) + 100) * 12 as 년봉 from emp; -- null이 있을 가능성을 생각해서 nullif 를 넣어주는 게 좋다.
 -- 2.담당업무 job이 세일즈인 모든 사원의 이름(emp_name), 담당업무(job),부서번호(dept_id)를 검색해 보세요.
 select emp_name, job, dept_id from emp where job = '세일즈';
 -- 3.입사일(hiredate)이 “2001년12월3일”인 모든 사원을 검색 하세요.
 select * from emp where hiredate = '2001-12-03';
+/* 
+date_format() 함수
+%Y - 4자리 연도(YYYY)
+%m - 2자리 월 (mm)
+%d - 2자리 일 (dd)
+%y - 2자리 연도(YY)
+*/
+select hiredate, date_format(hiredate, '%Y년%m월%d일') from emp;
+select * from emp where date_format(HIREDATE, '%Y년%m월%d일') = '2001년12월03일';
 -- .부서번호(dept_id)가 200인 부서에서 근무하는 모든 사원의 이름과 담당업무,입사일,부서번호검색하세요.
 select emp_name, job, hiredate, dept_id from emp where dept_id = 200;
 -- 5.emp테이블에서 급여가 3000이상 5000이하인 모든 사원의 이름과 급여를 출력하세요.
@@ -66,10 +73,15 @@ select * from emp where job in('경리','부장') and sal >=3000 order by hireda
 select * from emp order by dept_id, sal desc;
 -- 13.보너스(bonus)가 null이 아니면서 입사일이 2000년 이상인 사원의 정보를 검색하세요.
 select * from emp where bonus is not null and hiredate like '2000%';
+
+select * from emp where bonus is not null and date_format(hiredate, '%Y') >= '2000';
 -- 14.emp_name이 3글자이고 끝 글자가 ‘수'이며 첫글자는 ’박‘으로 시작하는 사원의 정보검색하세요.
 select * from emp where emp_name like '박_수';
 -- 15. 보너스(bonus)가 null인 사원의 보너스를 0으로 변경하세요.
 select emp_id, emp_name, job, dept_id, sal, ifnull(bonus, 0) as 보너스, mgr_id, hiredate from emp;
+update emp 
+set bounus = 0
+where bonus is null;
 -- 16. 직업이 ‘직’끝나면서 급여가 2000~3000사이 인 사원의 이름을 ‘장동건’, 급여를 3500으로 변경하세요.
 update emp set emp_name = '장동건', sal = 3500 where job like '%직' and sal between 2000 and 3000;
 select * from emp;

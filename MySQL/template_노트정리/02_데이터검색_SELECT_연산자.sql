@@ -196,10 +196,11 @@ update copy_emp set comm = ifnull(comm, 100); -- 성능의 차이가 있음. 얘
 
 */
 -- 급여를 가장 많이 받는 사원 3명 검색
-
+use mytest;
+select * from emp order by sal desc limit 3;
 
 -- 급여를 가장 적게 받는 사원 3명 검색
-
+select * from emp order by sal limit 3;
 
 -- 아래 쿼리는 SAL 열을 기준으로 내림차순 뒤, 6번째 행부터 3행을 조회함 
 SELECT * FROM EMP ORDER BY SAL DESC limit 5, 3;

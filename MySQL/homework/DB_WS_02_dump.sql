@@ -52,6 +52,8 @@ select * from account order by user_seq;
 select * from account order by user_seq, balance desc;
 -- 12. 계좌 테이블을 조회하되, balance 값이 없으면 0으로 표시한다.
 select account_seq, account_number, ifnull(balance, 0) as balance, user_seq from account;
+select a.* , ifnull(balance, 0) from account a;
+select * , ifnull(balance, 0) from account;
 -- 13. 고객 테이블을 조회하되, email은 @포함 뒷 부분은 뺴고 앞 아이디만 표시한다. 컬럼 명도 email 대신 email_id로 변경한다.
 select user_seq, name, substring_index(email, '@',1) As email_id from users;
 

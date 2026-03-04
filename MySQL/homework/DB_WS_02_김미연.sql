@@ -1,18 +1,19 @@
 use ex0303;
 create table users(
 	user_seq int,
-    name varchar(10),
-    email varchar(20),
-    phone varchar(14),
-    is_sleep varchar(5)
+    name varchar(50),
+    email varchar(50),
+    phone varchar(15),
+    is_sleep char(1)
 );
 
-alter table users add constraint primary key(user_seq);
+alter table users add constraint users_pk primary key(user_seq);
 
-alter table users add constraint unique (email);
-alter table users modify email varchar(20) not null;
+alter table users add unique (email);
+alter table users modify email varchar(50) not null;
 
 alter table users alter column is_sleep set default 'N';
+alter table users modify is_sleep char(5) default 'N';
 
 desc users;
 
