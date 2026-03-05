@@ -55,10 +55,37 @@ select account_seq, account_number, ifnull(balance, 0) as balance, user_seq from
 select a.* , ifnull(balance, 0) from account a;
 select * , ifnull(balance, 0) from account;
 -- 13. 고객 테이블을 조회하되, email은 @포함 뒷 부분은 뺴고 앞 아이디만 표시한다. 컬럼 명도 email 대신 email_id로 변경한다.
-select user_seq, name, substring_index(email, '@',1) As email_id from users;
-
-
-
+select user_seq, name, substring(email, 1, instr(email, '@') -1) As email_id from users;
+-- 14. 고객 테이블을 죄회하되, phone의 '-'를 제외하고 표시한다. 컬럼명도 phone_short로 변경한다.
+select phone, concat(substring(phone,1,3), substring(phone, 5,8), substring(phone, 10,13 )) from users;
+-- 15. 계좌 테이블에서 고객 번호가 222인 건 수를 조회한다.
+select count(*) from account where user_seq = 222;
+-- 고객 별 잔액 총합을 구한다. 
+select * from account;
+select user_seq, sum(balance) as 전체계좌잔고 
+from account
+where user_seq is not null
+group by user_seq;
+-- 16. 계좌 테이블에서 전체 잔고의 합을 조회하고 balance_sum으로 표시한다. 
+select sum(balance) balance_sum from account where balance is not null;
+-- 17. 계좌 테이블의 잔고 중 최소값과 최대값을 조회하고 각각 balance_min, balance_max로 표시한다.  
+select max(balance) balance_min, min(balance) balance_max from account;
+-- 18. 계좌 테이블에서 고객번호와 고객번호별 계좌 건수를 조회하고 account_cnt 로 표시한다. 단, 고객번호가 없는 건은 제외한다.
+select user_seq, count(*) user_account_cnt 
+from account
+where user_seq is not null
+group by user_seq;
+-- 19. 계좌 테이블에서 고객번호와 고객번호별 잔고의 합을 조회하고 user_balance_sum으로 표시한다. 단, 고객번호가 없는 건은 제외한다.
+select user_seq, sum(balance) user_balance_sum
+from account
+where user_seq is not null
+group by user_seq;
+-- 20. 19번의 결과 중 user_balance_sum이 10000 이하인 건만을 조회한다. 
+select user_seq, sum(balance) user_balance_sum
+from account
+where user_seq is not null
+group by user_seq
+having user_balance_sum <=10000;
 
 
 

@@ -21,6 +21,7 @@
       1) SQL JOIN  - FULL OUTER JOIN은 제공하지 않는다. 
       2) ANSI JOIN : 미국국립표준연구소에서 정한 미국의 표준을 기본으로 한다. - 권장
 */
+use mytest;
 
 CREATE TABLE TEST1(
     ID VARCHAR(10) PRIMARY KEY,
@@ -37,6 +38,7 @@ INSERT INTO TEST1 VALUES('KING', '소현', '제주도');
 SELECT * FROM TEST1;
 
 -- TEST1을 참조하는 테이블 생성(ID에 해당하는 사람이 갖고 있는 JOB, SAL의 정보 제공)
+-- 한 사람은 여러 개의 직업을 가질 수 있다. -> 테이블을 분리 필요
 CREATE TABLE TEST2(
     CODE CHAR(3) PRIMARY KEY,
     ID VARCHAR(10) ,  
@@ -58,27 +60,61 @@ SELECT * FROM TEST2;
 
 -- ID, NAME, JOB, SAL 검색하고 싶다 -> JOIN한다.
 -- 1.코딩방식 (SQL조인)
+select test1.id, name, job, sal
+from test1, test2
+where test1.id = test2.id;
 
+-- 테이블에 별칭을 줄 수 있다.
+select t1.id, name, job, sal
+from test1 t1 , test2 t2
+where t1.id = t2.id;
 
 -- 2..코딩방식 (ANSI조인) - 권장
+select *
+from test1 inner join test2 
+on test1.id = test2.id;
 
+-- 원하는 컬럼만 가져오고, 테이블에 별칭 사용 가능
+select t1.id, name, job, sal
+from test1 t1 inner join test2 t2 
+on t1.id = t2.id;
 
 -- USING사용하기 (양쪽 테이블의 조건 컬럼이름이  같은경우)
+select * -- 중복되는 컬럼(조인 대상 컬럼은 한 개만 나온다.)
+from test1 join test2
+using(id);
 
+select id, name, job, sal
+from test1 join test2
+using(id);
 
 -- NATURAL JOIN
-
+select * 
+from test1 natural join test2; -- 양쪽의 동일한 컬럼을 찾아서 알아서 조인해준다.
+-- 관계는 없는데 이름이 같은 컬럼이 있을 수도 있으니 사용한다면 주의해야 한다. 
  
 -- 2) ANSI조인방식 - LEFT
-
+select *
+from test1 left outer join test2 
+using(id);
 
 -- 2) ANSI조인방식 - RIGHT
-
+select *
+from test1 right outer join test2 
+using(id);
 
 -- 2) ANSI조인방식 - FULL
+/* select *
+from test1 full outer join test2 
+using(id); -- full은 지원 안 함.
+*/
+select *
+from test1 full join test2 
+using(id); -- full outer join이 아니라 동등 조인의 결과가 나온다. full outer join은 안 된다고 생각하면 된다.
 
 
--- 3개의 테이블 조인하기
+
+-- 3개의 테이블 조인하기 , 순차적으로 join한다.
 CREATE TABLE TEST3(
     CODE CHAR(3)      ,
     MANAGER_NAME VARCHAR(30),
@@ -96,41 +132,62 @@ SELECT * FROM TEST1;
 SELECT * FROM TEST2;
 SELECT * FROM TEST3;
 
--- EX) ID, NAME, ADDR, JOB, SAL, MANAGER_NAME, PHONE 검색
+-- EX) ID, NAME, ADDR / JOB, SAL / MANAGER_NAME, PHONE 검색
 
 -- ANSI 조인방식
-
+select *
+from test1 join test2 on test1.id = test2.id 
+		   join test3 on test2.code = test3.code;
+-- USING사용
+select *
+from test1 join test2 using(id)
+		   join test3 using(code);
 
 -- 특정 컬럼 선택하기
-
+select id, name, addr, job, sal, manager_name, phone
+from test1 join test2 using(id)
+		   join test3 using(code);
 
 -- USING사용
-
-
 -- USING사용 - 특정컬럼만 선택
 
-
-
-
 -- 조인에 조건 넣기 -- SAL가 300이상인 레코드 조인하기
-
  --  ANSI조인방식에 조건 주기
-
+select test1.id, name, addr, job, sal, manager_name, phone
+from test1 join test2 on test1.id = test2.id
+		   join test3 on test2.code = test3.code and test2.sal>=300;
  
- -- 3) USING에 조건 주기 
-
+select test1.id, name, addr, job, sal, manager_name, phone
+from test1 join test2 on test1.id = test2.id
+		   join test3 on test2.code = test3.code
+where test2.sal>=300;
+ 
+ -- 3) USING에 조건 주기 -- and로 연결 불가, where절만 가능
+select id, name, addr, job, sal, manager_name, phone
+from test1 join test2 using(id)
+		   join test3 using(code)
+where test2.sal>=300;
 
 
 
 -- NON-EQUI JOIN 
 -- EMP테이블에서 사원의 정보 + 급여등급을 함께 검색하고 싶다
 SELECT * FROM EMP;
-SELECT * FROM SALGRADE;
+SELECT * FROM SALGRADE; -- 급여 등급
 
+select * from emp join salgrade on sal between losal and hisal order by sal;
+ 
+select empno, ename, job, sal, grade, losal, hisal
+from emp join salgrade on sal between losal and hisal order by sal; 
  
 -- SELF JOIN - 자기자신 테이블을 2개로 만들어서 조인(재귀적관계)
 -- EX) SMITH사원의 관리자는 FORD입니다. 출력
 
+select * from emp;
+
+select e1.empno 사원번호, e1.ename 사원이름, e2.empno 관리자사원번호, e2.ename 관리자이름
+from emp e1 join emp e2 
+on e1.mgr = e2.empno; -- e1 사원테이블, e2 관리자정보테이블
 
 /*
 
@@ -139,7 +196,6 @@ SELECT * FROM SALGRADE;
         UNION - 중복레코드 제외
         
 */
-
  -- 테이블 복사
 CREATE TABLE SET_COPY
 AS SELECT EMPNO, ENAME, JOB, SAL FROM EMP WHERE SAL > 2000;
@@ -158,11 +214,10 @@ SELECT EMPNO, ENAME, JOB, SAL FROM EMP
 UNION ALL
 SELECT EMPNO, ENAME, JOB, SAL FROM SET_COPY;
 
+-- union은 중복을 제거하고 합쳐짐.
 SELECT EMPNO, ENAME, JOB, SAL FROM EMP
 UNION 
 SELECT EMPNO, ENAME, JOB , SAL FROM SET_COPY;
-
-
 
  -- -----------------------------------------------------------
  /*
@@ -173,63 +228,83 @@ SELECT EMPNO, ENAME, JOB , SAL FROM SET_COPY;
     : 서브쿼리의 결과 행이 여러 개 일 때는 ANY, ALL, IN 연산자를 사용한다. 
     : 주로 SELECT에서 많이 사용하지만 CREATE, INSERT, UPDATE ,DELTE, 
            HAVING, WHERE , FROM ,ORDER 에서도 사용가능 하다.
-
  */
  
- -- EMP테이블에서 평균 급여보다 더 많이 받는 사원 검색
-  -- 1) 평균 급여를 구한다.
-     
+-- EMP테이블에서 평균 급여보다 더 많이 받는 사원 검색
+-- 1) 평균 급여를 구한다.
+use mytest;
+select avg(sal) from emp;
   
-  -- 2) 1)에서 구한 평균급여를 조건으로 사용한다. 
-  
+-- 2) 1)에서 구한 평균급여를 조건으로 사용한다. 
+select * from emp where sal > (select avg(sal) from emp);  
                   
       
--- JOB에 'A'문자열이 들어간 사원의 부서와 같은 곳에서 근무하는 사원의 부서이름 검색하고 싶다. 
-
+-- JOB에 'A'문자열이 들어간 사원의 부서와/ 같은 곳에서 / 근무하는 사원의 부서이름 검색하고 싶다. 
+-- 1) job에 'A' 문자열이 들어간 사원의 부서번호를 구한다.
+select distinct deptno from emp where job like '%a%';
   
- -- 부서번호가 30인 사원들에 급여중에서 가장 많이 받는 사원보다 더 많이 받는 사원정보를 검색하고 싶다. 
+-- 2) 1)에서 구한 부서 번호에 해당하는 부서이름을 dept에서 검색한다.
+-- 서브쿼리의 결과 행이 여러 개이면 비교연산자를 사용하지 못함으로 any, all, in(또는) 을 사용해야 한다.
+select dname from dept where deptno in (select distinct deptno from emp where job like '%a%'); 
 
+-- 부서번호가 30인 사원들에 급여중에서 가장 많이 받는 사원보다 더 많이 받는 사원정보를 검색하고 싶다. 
+-- 1) 부서번호가 30인 사원들 급여 중 가장 많이 받는 사원
+select max(sal) from emp where deptno = 30; 
+
+-- 2) 1)보다 더 많이 받은 사원 정보를 검색하고 싶다.
+select * from emp where sal > (select max(sal) from emp where deptno = 30);
+select * from emp where sal > (select sal from emp where deptno = 30); -- error
 
 /*
  검색결과와 하나이상이 일치하면 참
  ex) 컬럼명 < any(100, 200, 300) => 최대값보다 작다
-      컬럼명 > any(100, 200, 300) => 최소값 보다 크다
+	 컬럼명 > any(100, 200, 300) => 최소값보다 크다
 
 
 - 검색결과의 모든 값이 일치하면 참.
  ex) 컬럼명 < all(100, 200, 300) => 최소값보다 작다
      컬럼명 > all(100, 200, 300) => 최대값보다 크다.
 */
-
+select * from emp where sal > all (select sal from emp where deptno = 30);
 
 
 -- SUBQUERY를 이용한 INSERT
 -- 테이블 복사
 CREATE TABLE SUB_EMP
-AS SELECT * FROM EMP WHERE 1=0;
+AS SELECT * FROM EMP WHERE 1=0; -- 구조만 복사하고 레코드는 가지고 오지 않음
 
 SELECT * FROM SUB_EMP;
 
 
 -- 특정한 칼럼만 다른테이블로부터 가져와서 INSERT
-
+insert into sub_emp(empno, ename, job, sal) (select empno, ename, job, sal from emp where sal>=3000);
 
 
 SET SQL_SAFE_UPDATES = 0;  
 
 -- SUBQUERY를 UPDATE
--- EX) EMP테이블에서 EMPNO 7900인 사원의 JOB, MGR, DEPTNO로 SUB_EMP테이블의 7566의 사원의 정보로 수정해보자.
+-- EX) EMP테이블에서 EMPNO 7900인 사원의 JOB, MGR, DEPTNO로 SUB_EMP테이블의 7902의 사원의 정보로 수정해보자.
+update sub_emp 
+set job = (select job from emp where empno = 7900), 
+	mgr = (select mgr from emp where empno = 7900), 
+	deptno = (select deptno from emp where empno = 7900) 
+where empno = 7902;
 
+select * from sub_emp where empno = 7839;
 
 -- SUBQUERY 대신 JOIN문장으로 변경하면
-
+-- 7900 만 sub_emp에 묶임 
+update sub_emp sub join emp e on e.empno=7499
+set sub.job = e.job, sub.mgr = e.mgr, sub.deptno = e.deptno
+where sub.empno = 7839;
 
 
 -- SUBQUERY를 DELETE
-  -- EX) EMP테이블의 평균 급여를 조건으로 사용해서 평균급여보다 많이 받는 사원들을 삭제한다. 
-  
+-- EX) EMP테이블의 평균 급여를 조건으로 사용해서 평균급여보다 많이 받는 사원들을 삭제한다. 
+delete from sub_emp 
+where sal > (select avg(sal) from emp);
 
- 
+
 
 
 

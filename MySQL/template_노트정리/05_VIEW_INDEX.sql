@@ -34,6 +34,7 @@
 USE MYTEST;
 
 -- 테이블 복사
+drop table copy_emp;
 
 CREATE TABLE COPY_EMP
 AS SELECT * FROM EMP;
@@ -43,50 +44,52 @@ SELECT * FROM COPY_EMP;
 
 -- COPY_EMP 원본으로 사용하는 VIEW 만들어보자.
 -- 1) 보안적인 측면
- 
+create or replace view v_emp
+as select empno, ename, job, hiredate, deptno from copy_emp where deptno = 20;
  
  -- 뷰검색
-
- 
+select * from v_emp;
  -- 테이블검색
-
-
-
+select * from copy_emp;
 -- 뷰는 테이블처럼 사용되기 때문에 SELECT, INSERT, UPDATE, DELETE 기본적으로 가능하다.
-
 -- 뷰에 INSERT 해본다.
+insert into v_emp values(9000, '희정', '강사', now(), 20); -- 가상테이블의 이름을 빌려서 copy_emp에 접근하는 것, copy_emp에 추가 됨
+insert into copy_emp(empno, ename, job, hiredate, deptno) values(9002, '희정2', '강사2', now(), 20); -- v_emp에도 추가되어 있음 
 
--- 뷰에서 삭제해본다.
-
--- COPY_EMP수정해보자.
-
-
--- 보안적인 측면으로 VIEW를 만들어보자 (조건- DEPTNO = 20 에 해당하는 레코드와 컬럼을 선택해서 뷰을 만들어보자)
-
-
-
--- 뷰에 레코드 등록(DEPTNO = 20)
-
-
--- 뷰에 조건에 해당하지 않는 즉, 20부서가 아닌 정보를 등록해보자 
-
-
-
+-- deptno = 30
+insert into v_emp values(9003, '희정3', '강사3', now(), 30); -- v_emp를 불러와도 이 레코드는 안 보임 but copy_emp에는 정상적으로 추가 됨 
 /*위 문장이 등록이 성공한다. 실제로 V_EMP를 검색하면 등록한 30부서정보는 검색되지 않는다.
  원본테이블 COPY_EMP를 조회 했을대 검색된다. 뷰를 사용하는 입장에서는 황당!! 
  이러한 부분을 개선하기 위해서 뷰를 생성할때 WITH CHECK OPTION를 설정하면 조건에 만족하지 않는 DML을 오류 발생한다. 
  */
- 
+create or replace view v_emp
+as select empno, ename, job, hiredate, deptno from copy_emp where deptno = 20
+WITH CHECK OPTION ;
 
+insert into v_emp values(9004, '희정4', '강사4', now(), 20);
+insert into v_emp values(9005, '희정5', '강사5', now(), 30); -- error
+
+-- 뷰에서 삭제해본다.
+-- COPY_EMP수정해보자.
+-- 보안적인 측면으로 VIEW를 만들어보자 (조건- DEPTNO = 20 에 해당하는 레코드와 컬럼을 선택해서 뷰을 만들어보자)
+-- 뷰에 레코드 등록(DEPTNO = 20)
+-- 뷰에 조건에 해당하지 않는 즉, 20부서가 아닌 정보를 등록해보자 
 
 -- 2) 복잡한 쿼리(JOIN, SUBQUERY)를 미리 뷰로 만들어서 조회할때 간소화 하게 조회 할수 있도록 하는 용도
 -- EX) 어떤 사원과 동일한 근무지(LOC)에서 근무하는 사원의 이름 출력 하고싶다!!!
 
-
-
+use exam;
+create or replace view v_subemp
+as
+select * from subemp 
+where dept_id in (select dept_id from subemp where emp_name like '%정%' 
+					and sal > (select avg(sal) from subemp ) 
+                    and dept_id is not null);
 
 -- 뷰 삭제
-
+use mytest;
+describe v_emp;
+show create view v_emp;
 
  /*
    INDEX
