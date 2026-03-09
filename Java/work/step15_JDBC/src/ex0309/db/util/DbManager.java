@@ -1,0 +1,57 @@
+package ex0309.db.util;
+/**
+ * DB 연동을 위한 로드/연결/닫기
+ * */
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DbManager {
+	
+	/**
+	 * 로드
+	 * */
+	static {
+		try {
+			Class.forName(DbProperties.DRIVER_NAME); //MySQL Driver를 찾는다.
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 연결
+	 * */
+	public static Connection getConnection() throws SQLException { 
+		return DriverManager
+				.getConnection(DbProperties.URL, DbProperties.USER_ID, DbProperties.USER_PASS); //관리가 편하기 위해서 DbProperties를 만들어서 가져온다.
+	}
+	
+	/**
+	 * 닫기(select 전용)
+	 * */
+	public static void dbClose(Connection con, Statement st, ResultSet rs) {
+		try{
+			if(rs!=null) rs.close();
+			dbClose(con, st);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 닫기(insert, update, delete 전용)
+	 * */
+	public static void dbClose(Connection con, Statement st) {
+		try{
+			if(st!=null) st.close();
+			if(con!=null) con.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+}
