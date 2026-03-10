@@ -142,7 +142,7 @@ public class TransactionDAO {
 		//dao.transfer("A02", "A01",700);//입금, 출금, 금액
 		
 		System.out.println("--4. 성공----------");
-		dao.transfer("A02", "A01",100);//입금, 출금, 금액
+		//dao.transfer("A02", "A01",100);//입금, 출금, 금액
 	}
 }
 

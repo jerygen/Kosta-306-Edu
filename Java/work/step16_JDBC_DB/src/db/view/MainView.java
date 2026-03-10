@@ -30,22 +30,22 @@ public class MainView {
 		 
 		
 		
-//		System.out.println("\n4-1.  뷰에서 강사번호에 해당하는 강사의 정보 검색하기 ------------");
-//		 teacher = dao.getTeacherInfoByNo(5);
-//		if(teacher==null)
-//			System.out.println("강사의 정보가 없습니다.");
-//		else {
-//			System.out.println("------강사 정보 --------------");
-//			System.out.print(teacher.getTeacherNo() +" | ");
-//			System.out.print(teacher.getTeacherName() +" | ");
-//			
-//			System.out.print(teacher.getSubject().getSugangCode() +" | ");
-//			System.out.print(teacher.getSubject().getSubjectName() +" | ");
-//			
-//			System.out.print(teacher.getRoom().getRoomNo() +" | ");
-//			System.out.print(teacher.getRoom().getRoomCount() +"\n");
-//			
-//		}
+		System.out.println("\n4-1.  뷰에서 강사번호에 해당하는 강사의 정보 검색하기 ------------");
+		 teacher = dao.getTeacherInfoByNo(5);
+		if(teacher==null)
+			System.out.println("강사의 정보가 없습니다.");
+		else {
+			System.out.println("------강사 정보 --------------");
+			System.out.print(teacher.getTeacherNo() +" | ");
+			System.out.print(teacher.getTeacherName() +" | ");
+			
+			System.out.print(teacher.getSubject().getSugangCode() +" | ");
+			System.out.print(teacher.getSubject().getSubjectName() +" | ");
+			
+			System.out.print(teacher.getRoom().getRoomNo() +" | ");
+			System.out.print(teacher.getRoom().getRoomCount() +"\n");
+			
+		}
 		
 	}
 

@@ -20,7 +20,7 @@ public class StudentTeacherDAOImpl implements StudentTeacherDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select * from student where substring(reg_number, 8,1) = '2'";
+		String sql = "select * from student where substring(reg_number, 8,1) = '2'";//select * from student where reg_number like '%-2%'
 		List<Student> list = new ArrayList<>();
 		
 		try {
@@ -56,12 +56,15 @@ public class StudentTeacherDAOImpl implements StudentTeacherDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "select * from instructor where substring(address, instr(address, '강남구'), 3) = '강남구'";
+		//select * from instructor  where address like ?//인수가 있는데 인수를 사용 안 함..;;
 		List<Teacher> list = new ArrayList<>();
 		
 		try {
 			con = DbManager.getConnection(); //연결
 	
 			ps = con.prepareStatement(sql);//실행
+			// ps.setString(1, "%"+gu+"%");
+			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -126,11 +129,12 @@ public class StudentTeacherDAOImpl implements StudentTeacherDAO {
 		String sql = "select * from v_tear where instructor_id = ?";
 		Teacher teacher = new Teacher();
 		
-		
 		try {
 			con = DbManager.getConnection(); //연결
 			
 			ps = con.prepareStatement(sql);//실행
+			ps.setInt(1, teacherNo);
+			
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
@@ -140,8 +144,6 @@ public class StudentTeacherDAOImpl implements StudentTeacherDAO {
 				
 				teacher.setTeacherNo(rs.getInt("instructor_id"));
 				teacher.setTeacherName(rs.getString("name"));
-				
-				
 			}
 			
 		} catch (SQLException e) {
