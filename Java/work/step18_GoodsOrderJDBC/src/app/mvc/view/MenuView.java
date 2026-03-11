@@ -57,8 +57,7 @@ public class MenuView {
 				case 1 :
 					logout(userId);// 
 					return; //함수를 빠져나가라.
-					//break;
-					
+					//break;					
 				case 2 :
 					GoodsController.goodsSelect();//전체 상품조회
 					break;
@@ -71,11 +70,10 @@ public class MenuView {
 				case 5 :
 					MenuView.putCart(userId);// 
 					break;	
-		
 				case 6 : 
 					viewCart(userId);
 					break;
-				}
+			}
 		}
 		
 	}
@@ -143,20 +141,17 @@ public class MenuView {
 		System.out.print("수량 : ");
 		int qty = Integer.parseInt(sc.nextLine());
 		
-		CartController.putCart(id,goodsId,qty);
-	
-		
+		CartController.putCart(id,goodsId,qty);	
 	}
 	
     /**
      * 장바구니 보기
      * */
 	public static void viewCart(String id) {
-		CartController.viewCart(id);
-		
-		
-		
+		CartController.viewCart(id);		
 	}
+	
+	
 }
 
 

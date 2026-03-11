@@ -24,10 +24,8 @@ public class CustomerService {
 		
 		//로그인 된 정보 저장하기
 		Session session = new Session(userId);
-		
 		SessionSet sessionSet = SessionSet.getInstance();
-		
-		sessionSet.add(session); //인증된사용자를 SessionSet에 저장한다.
+		sessionSet.add(session); //인증된사용자를 SessionSet에 저장한다. 로그인 정보가 저장됨
 		
 		return customer;
 	}

@@ -29,7 +29,7 @@ public class CartController {
 			SessionSet ss = SessionSet.getInstance();
 			Session session = ss.get(id);	
 			
-			//세션에서 장바구니 찾기
+			//세션에서 장바구니 찾기, 
 			Map<Goods, Integer> cart =	(Map<Goods,Integer>)session.getAttribute("cart"); //상품 , 수량 저장 
 			
 			//장바구니가 없으면 장바구니 생성
@@ -38,15 +38,15 @@ public class CartController {
 				session.setAttribute("cart", cart);
 			}
 			
+			//goods에서 hashcode()와 equals를 재정의해야 함, Map은 put을 사용하는데 put은 덮어쓰기가 됨. 
 			
-			
-			//장바구니에서 상품찾기
+			//장바구니에서 상품찾기 같은 상품이 있는지를 체크
 			Integer oldQuantity = cart.get(goods);//goods는 장바구니 Map의 key
 			if(oldQuantity != null) { //장바구니에 이미 상품이 있다면
 				quantity += oldQuantity; //수량을 누적 => quantity = quantity + oldQuantity
 			}
 			
-			cart.put(goods, quantity); //장바구니에 상품 넣기
+			cart.put(goods, quantity); //장바구니에 상품 넣기(덮어쓰기)
 			
 			//System.out.println("cart = " + cart);
 			EndView.printMessage("장바구니에 담았습니다");

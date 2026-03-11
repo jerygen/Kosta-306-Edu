@@ -30,16 +30,16 @@ public class SessionSet {//싱글톤
 	}
 	
 	//세션 객체들 반환
-		public Set<Session> getSet(){
-			return set;
-		}
+	public Set<Session> getSet(){
+		return set;
+	}
 	
-		/**
-		 * 로그인 된 사용자 추가
-		 * */
-		public void add(Session session) {
-			set.add(session);
-		}
+	/**
+	* 로그인 된 사용자 추가
+	* */
+	public void add(Session session) {
+		set.add(session);
+	}
 		
 	/**
 	 * 사용자 제거 - 로그아웃

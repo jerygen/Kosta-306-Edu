@@ -36,7 +36,7 @@ public class OrderDAOImpl implements OrderDAO {
 		   con.setAutoCommit(false);//자동커밋해지
 		   
 		  // ps = con.prepareStatement(sql);
-		   ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);//RETURN_GENERATED_KEYS 옵션을 사용하여 AUTO_INCREMENT 값을 가져온다
+		   ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);//RETURN_GENERATED_KEYS 옵션을 사용하여 AUTO_INCREMENT 값을 가져온다! 
 		   ps.setString(1, order.getUserId());
 		   ps.setString(2, order.getAddress());
 		   
@@ -53,7 +53,7 @@ public class OrderDAOImpl implements OrderDAO {
 			   int orderId = -1;
 			   
 			   if(rs.next()) {
-				   orderId= rs.getInt(1);
+				   orderId= rs.getInt(1); //auto-increment로 만들어진 주문 번호
 			   }
 			   System.out.println("orderId = " + orderId);
 			   int re [] = this.orderLineInsert(con, order, orderId); //주문상세 등록하기 
@@ -63,7 +63,6 @@ public class OrderDAOImpl implements OrderDAO {
 					   throw new SQLException("주문 할수 없습니다....");
 				   }
 			   }
-			   
 			   
 			   //주문수량만큼 재고량 감소하기
 			   this.decrementStock(con, order.getOrderLineList());
@@ -93,27 +92,28 @@ public class OrderDAOImpl implements OrderDAO {
 			 
 		  for( OrderLine orderline : order.getOrderLineList() ) {
 			 Goods goods = goodsDao.goodsSelectBygoodsId(orderline.getGoodsId());
-			   ps.setInt(1, orderId); //주문번호
+			 ps.setInt(1, orderId); //주문번호
 			 
-			   ps.setString(2, orderline.getGoodsId()); //상품코드
-			   ps.setInt(3, goods.getGoodsPrice());//가격
-			   ps.setInt(4, orderline.getQty());//구매수량
-			   ps.setInt(5,  goods.getGoodsPrice()*orderline.getQty());//총구매금액
+			 ps.setString(2, orderline.getGoodsId()); //상품코드
+			 ps.setInt(3, goods.getGoodsPrice());//가격
+			 ps.setInt(4, orderline.getQty());//구매수량
+			 ps.setInt(5,  goods.getGoodsPrice()*orderline.getQty());//총구매금액
+			    
+			 //ps.executeUpdate(); //한 줄마다 보내 주는 것, 네트워크 부담이 생김
 			   
-			   //ps.executeUpdate();
-			   
-			   ps.addBatch(); //일괄처리할 작업에 추가
-			   ps.clearParameters();
+			 ps.addBatch(); //일괄처리할 작업에 추가
+			 ps.clearParameters(); //추가하고 나서 새로운 파라미터를 받아오기 때문에 사용
 		  }
 		  
-		  result = ps.executeBatch();//일괄처리
+		  //insert 결과가 여러 개 나오므로 int[] 로 결과가 나온다.
+		  result = ps.executeBatch();//일괄처리, 외부의 DB에 쿼리 전송하고 그 결과를 받는다.
 		  
-		   
-    }finally {
-    	DbManager.close(null, ps , null);
-    }
+		  
+		 }finally {
+			 DbManager.close(null, ps , null);
+		 }
 		
-		return result;
+		 return result;
 		
 	}
 	
@@ -161,6 +161,8 @@ public class OrderDAOImpl implements OrderDAO {
 		return total;
 	}
 	
+	//join을 하지 않고 select 문장 두 개로 하니깐 1:다 관계로 가져올 수 있다.
+	//select는 데이터 조작이기 때문에 transaction 관리가 딱히 필요없어서 안 넣었지만, 깔끔하게 하려면 같은 transaction에서 하는 것이 좋다.
 	/**
 	 * 주문내역 보기
 	 * */
