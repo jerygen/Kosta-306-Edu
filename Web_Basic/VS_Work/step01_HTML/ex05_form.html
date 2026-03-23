@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>폼 요소 알아보기</h1>
+    <form action="ex01_start.html" method="get">
+      <label for="userId">아이디</label>
+      <!--Query String으로는 name속성이 전달됨-->
+      <input type="text" name="id" id="userId" value="jang" />
+      <br />
+      비번<input type="password" name="pwd" id="pwd" /><br />
+      이름<input type="text" name="name" id="name" maxlength="5" /><br /><br />
+      <fieldset>
+        <legend>취미 선택</legend>
+        <!--checkbox와 radio는 value라는 값이 넘어가는 것이다.-->
+        <!--checkbox는 name이 같아도 달라도 상관없다. 단 같으면 하나의 이름으로 배열로 다를 수 있다.-->
+        <input type="checkbox" name="hobby" id="hobby" value="A" />등산
+        <input type="checkbox" name="hobby" id="hobby" value="B" checked />낚시
+        <input type="checkbox" name="hobby" id="hobby" value="C" />수영
+        <input type="checkbox" name="hobby" id="hobby" value="D" checked />골프
+      </fieldset>
+      <fieldset>
+        <legend>성별 선택</legend>
+        <!--radio는 단일 선택, 그 기준은 name이 동일한 그룹내에서 단일 선택-->
+        <input type="radio" name="gender" value="man" />남자
+        <input type="radio" name="gender" value="woman" checked />여자
+      </fieldset>
+      <br />
+
+      <textarea name="content" cols="20" rows="5"></textarea><br /><br />
+
+      <select name="job" id="job" size="3" multiple>
+        <option value="0">--선택--</option>
+        <option value="개발자">개발자</option>
+        <option value="디자이너">디자이너</option>
+        <option value="기획자" selected>기획자</option>
+        <option value="DBA">DBA</option>
+        <option value="엔지니어">엔지니어</option>
+        <option value="웹개발자">웹개발자</option></select
+      ><br /><br />
+
+      <!--button 태크는 폼 요소 안에 있으면 기본이 submit이고, 폼요소 밖에 있으면 기본이 button-->
+      <button>클릭1</button>
+      <button type="button">클릭2</button>
+      <button type="reset">클릭3</button>
+      <button type="submit">클릭4</button>
+    </form>
+
+    <button>클릭5</button>
+  </body>
+</html>
