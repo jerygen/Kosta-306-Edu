@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 200px;
+        height: 200px;
+      }
+      div.a {
+        background-color: red;
+        padding-top: 20px;
+        padding-bottom: 50px;
+        padding-left: 30px;
+      }
+      /*
+      By default, the width and height of an element is calculated like this:
+      width + padding + border = actual width of an element
+      height + padding + border = actual height of an element
+      */
+      div.b {
+        background-color: pink;
+        padding: 20px;
+        border: solid 10px yellow;
+        box-sizing: border-box;
+      }
+      div.c {
+        background-color: aquamarine;
+        border-style: solid dotted;
+        border-color: blueviolet blue pink;
+        border-width: 10px 20px 5px 3px;
+        border-radius: 50px 30px;
+        text-align: center;
+        vertical-align: middle; /*적용 안 됨*/
+        color: white;
+        /*display: table-cell;*/ /*적용 됨*/
+        align-content: center; /*display속성에 들어가 있음*/
+      }
+    </style>
+  </head>
+  <body>
+    <div class="a">box모델</div>
+    <div class="b">box모델</div>
+    <div class="c">box모델</div>
+  </body>
+</html>
