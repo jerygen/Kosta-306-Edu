@@ -1,4 +1,24 @@
+/*전체 영역을 감싸는 부분*/
+#container {
+  display: grid;
+  grid-template-areas: "navbar" "banner" "main" "footer";
+}
+#navbar {
+  grid-area: navbar;
+}
 #banner {
+  grid-area: banner;
+  width: 100%;
   height: 100px;
   background-color: blueviolet;
+  text-align: center;
+  font-size: 32px;
+  align-content: center;
+  color: white;
+}
+#main {
+  grid-area: main;
+}
+#footer {
+  grid-area: footer;
 }

@@ -4,28 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IT's KOSTA</title>
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/navbar.css" />
+    <link rel="stylesheet" type="text/css" href="./css/footer.css" />
     <style>
-      #navbar {
-        width: 100vw;
-        height: 130px;
+      #main {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: 5px 0px;
+      }
+      .main-item {
+        margin: 0px 3px;
         display: flex;
-        background-color: antiquewhite;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
       }
-      .nav-item {
-        width: 100px;
-        justify-content: space-evenly;
-        text-align: center;
-        flex-direction: row;
+      .main-item img {
+        width: 100%;
       }
-      #banner {
-        height: 100px;
-        background-color: blueviolet;
-        text-align: center;
-        font-size: 32px;
-        align-content: center;
-        color: white;
+      .main-item button {
+        align-self: self-end;
       }
     </style>
   </head>
