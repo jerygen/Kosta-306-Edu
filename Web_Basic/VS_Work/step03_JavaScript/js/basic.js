@@ -1,0 +1,29 @@
+//여기는 자바 스크립트 영역입니다.
+
+/*여러 줄 또는 부분 주석입니다. */
+
+//콘솔에 출력
+console.log("안녕하세요 어디에 출력되나요?");
+//브라우저에 출력
+document.write("<h1>난 어디에 출력되나?</h1>");
+
+//함수 작성
+function test(th) {
+  //th는 this를 전달받는다.
+
+  // alert("되니?"); //메세지 창(.생략하면 window)
+  //h2에 css 적용
+
+  //element를 찾는 방법 - id로 찾기
+  // document.getElementById("h2").style.backgroundColor = "tomato";
+  // document.getElementById("h2").style.color = "white";
+
+  th.style.backgroundColor = "tomato";
+  th.style.color = "white";
+}
+
+//h3 태그에 css 적용 - 문서가 열릴 때!!
+
+//Uncaught TypeError: Cannot read properties of null (reading 'style')
+//아직 h3 태그까지 가지 않았기 때문에 h3이 없다는 오류가 발생한다.
+//document.getElementById("h3").style.border = "3px tomato solid";
