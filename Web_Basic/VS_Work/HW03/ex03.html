@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      document.write("<h1>계산해보자</h1>");
+      document.write(`<button type="submit">계산</button>`);
+      document.write(`<br><div id="result"></div>`);
+
+      function calc() {
+        let num1 = Number(prompt("숫자1을 입력하세요."));
+        let num2 = Number(prompt("숫자2를 입력하세요."));
+        let operator = prompt("연산자를 입력하세요");
+
+        if (
+          isNaN(num1) ||
+          isNaN(num2) ||
+          !["+", "-", "*", "/"].includes(operator)
+        ) {
+          if (confirm("입력이 잘못되었습니다. 다시 시도하시겠습니까?")) {
+            calc();
+          }
+          return;
+        }
+
+        let re;
+        switch (operator) {
+          case "+":
+            re = num1 + num2;
+            break;
+          case "-":
+            re = num1 - num2;
+            break;
+          case "*":
+            re = num1 * num2;
+            break;
+          case "/":
+            if (num2 !== 0) re = num1 / num2;
+            else re = "0으로는 나눌 수 없습니다.";
+            break;
+        }
+        const result = document.querySelector("#result");
+        result.innerHTML += `<h5>${re}</h5>`;
+      }
+
+      const btn = document.querySelector("button");
+      btn.onclick = calc;
+
+      const result = document.querySelector("#result");
+      result.style.width = "200px";
+      result.style.height = "150px";
+      result.style.border = "solid red 3px";
+      result.style.overflow = "auto";
+    </script>
+  </body>
+</html>
