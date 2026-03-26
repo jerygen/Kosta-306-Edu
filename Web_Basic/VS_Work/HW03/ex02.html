@@ -6,17 +6,67 @@
     <title>Document</title>
   </head>
   <body>
+    <script></script>
     <table>
       <script>
+        let name = prompt("이름을 입력하세요.");
+        let kor = Number(prompt("국어 점수를 입력하세요."));
+        let eng = Number(prompt("영어 점수를 입력하세요."));
+        let mat = Number(prompt("수학 점수를 입력하세요."));
+        let tot = kor + eng + mat;
+        let avg = tot / 3;
+
         document.write("<caption><h1>성적표 - 1</h1></caption>");
-        for (let i = 0; i < 2; i++) {
-          document.write("<tr>");
-          for (let j = 0; j < 8; i++) {
-            document.write("<td>이름</td>");
-          }
-          document.write("</tr>");
-        }
+
+        document.write("<tr>");
+        document.write("<th>이름</th>");
+        document.write("<th>국어</th>");
+        document.write("<th>영어</th>");
+        document.write("<th>수학</th>");
+        document.write("<th>총점</th>");
+        document.write("<th>평균</th>");
+        document.write("<th>등급</th>");
+        document.write("</tr>");
+
+        //입력받는 값
+        document.write("<tr>");
+        document.write(`<td>${name}</td>`);
+        document.write(`<td>${kor}</td>`);
+        document.write(`<td>${eng}</td>`);
+        document.write(`<td>${mat}</td>`);
+        document.write(`<td>${tot}</td>`);
+        document.write(`<td>${avg.toFixed(2)}</td>`);
+
+        document.write(`<td>수</td>`);
+        if (avg >= 90) document.write(`<td>수</td>`);
+        else if (avg >= 80) document.write(`<td>우</td>`);
+        else if (avg >= 70) document.write(`<td>미</td>`);
+        else if (avg >= 60) document.write(`<td>양</td>`);
+        else document.write(`<td>가</td>`);
+        document.write("</tr>");
       </script>
     </table>
+    <script>
+      document.write("<hr>");
+
+      document.querySelector("h1").style.textAlign = "center";
+      const table = document.querySelector("table");
+      table.style.borderCollapse = "collapse";
+      table.style.border = "double 3px red";
+
+      const content = document.querySelectorAll("th, td");
+      content.forEach(function (item) {
+        item.style.width = "70px";
+        item.style.height = "25px";
+        item.style.border = "solid 1px black";
+        item.style.padding = "8px";
+        item.style.textAlign = "center";
+      });
+
+      let hrLine = document.querySelector("hr");
+      hrLine.style.backgroundColor = "blue";
+      hrLine.style.border = "none";
+      hrLine.style.height = "3px";
+    </script>
   </body>
 </html>
