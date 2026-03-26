@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table>
+      <script>
+        document.write("<caption><h1>구구단</h1></caption>");
+
+        for (let i = 2; i < 10; i++) {
+          document.write(`<th>${i}단`);
+        }
+
+        for (let i = 1; i < 10; i++) {
+          document.write(`<tr>`);
+          for (let j = 2; j < 10; j++) {
+            document.write(`<td>${j} * ${i} = ${i * j}</td>`);
+          }
+          document.write("</tr>");
+        }
+      </script>
+    </table>
+    <script>
+      document.querySelector("h1").style.textAlign = "center";
+      const content = document.querySelectorAll("th, td");
+      content.forEach(function (item) {
+        item.style.border = "solid 1px black";
+        item.style.padding = "8px";
+      });
+      const table = document.querySelector("table");
+      table.style.borderCollapse = "collapse";
+      let head = document.querySelectorAll("th");
+      head.forEach(function (item) {
+        item.style.backgroundColor = "pink";
+      });
+    </script>
+  </body>
+</html>

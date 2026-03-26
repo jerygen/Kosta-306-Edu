@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>연산자를 알아보자</h1>
+    <script>
+      let i = 10;
+      let j = "10";
+
+      document.write("<h3>");
+      document.write("i=" + i + ", type=" + typeof i + "<br>");
+
+      //탬플릿 문자열 이용해서 출력 - `(백틱)
+      document.write(`j=${j}, type=${typeof j} <br>`);
+
+      //비교 (같다 == vs ==== | != vs !==)
+      //값만 비교
+      document.write(`${i}==${j} => ${i == j}<br>`);
+      //값과 타입까지 비교
+      document.write(`${i}===${j} => ${i === j}<br>`);
+
+      //형변환
+      /*
+       1) parseInt() - 값 안에 문자가 나오기 전까지 숫자를 추출
+       2) Number() - 값 안에 문자가 포함되어 있으면 NaN 결과가 나온다(Not a Number)
+       3) isNaN() - is Not a Number? (숫자가 아니면 true, 숫자이면 false) 
+      */
+      let data1 = "100";
+      let data2 = "100a";
+      let data3 = "a100";
+
+      console.log(data1 + 10); // + 는 기능이 두 가지가 있다. 문자열은 연결해주는 역할이 있기 때문에 연결되어 출력
+      console.log(data1 - 10); //문자열이지만 - , * , / 는 가능하다
+      console.log(parseInt(data1) + 10);
+      console.log(Number(data1) + 10);
+
+      console.log("----------------------");
+      console.log(parseInt(data2)); //문자열을 만나기전까지는 추출한다.
+      console.log(Number(data2)); //아예 변환되지 않음
+
+      //동적으로 css를 적용할 때 기존의 width(20px)의 크기를 가져오고 10 더한다.
+
+      console.log("----------------------");
+      console.log(parseInt(data3));
+      console.log(Number(data3));
+
+      console.log("----------------------");
+      if (isNaN(data1)) {
+        console.log("숫자가 아니다.");
+      } else {
+        console.log("숫자이다.");
+      }
+      /////////////////////////////////////////////
+      // window 객체 안에 있는 함수
+      //1.메세지 출력
+      //alert("메세지를 출력합니다.")
+
+      //2. 의사를 물어볼 때
+      //   let result = confirm("삭제하실래요?");
+      //   console.log("result=" + result);
+
+      //3. 입력값을 받을 때
+      let name = prompt("이름은?", "희정");
+      console.log("name=" + name);
+
+      document.write("</h3>");
+    </script>
+  </body>
+</html>
