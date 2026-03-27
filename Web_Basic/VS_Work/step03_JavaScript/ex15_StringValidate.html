@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form name="form">
+      ID : <input type="text" name="id" /><span id="idSpan"></span>
+      <p>age : <input type="text" name="age" /><span></span></p>
+      <p>email : <input type="text" name="email" /><span></span></p>
+      <p></p>
+
+      <fieldset>
+        <legend>주민번호</legend>
+        <input type="text" size="6" name="jumin1" /> -
+        <input type="text" size="7" name="jumin2" /><span></span>
+        <p>
+          성별 :
+          <input type="radio" name="gender" value="남자" />남자
+          <input type="radio" name="gender" value="여자" />여자
+        </p>
+      </fieldset>
+    </form>
+
+    <script>
+      //id에 영문만 가능 (blur 이벤트)
+      //어떤 영역에 커서가 놓이는 것을 focus
+      document.querySelector("[name=id]").addEventListener(
+        "focus",
+        function () {
+          event.target.style.border = "double 5px red";
+          document.querySelector("#idSpan").innerHTML = ""; //다시 돌아가면 메세지를 지워준다.
+        },
+        false,
+      );
+
+      //어떤 영역에 커서가 벗어나는 것을 blur
+      document.querySelector("[name=id]").addEventListener(
+        "blur",
+        function () {
+          event.target.style.border = "solid 1px grey";
+
+          //허용 가능한 문자열 준비
+          let data = "qwertyuiopasdfghjklzxcvbnm0123456789!@$";
+
+          //id 박스에 있는 값을 가져오기
+          let inputValue = event.target.value;
+
+          //문자열 안에 요소들을 뽑아서 허용 가능한 문자열과 비교
+          for (let i = 0; i < inputValue.length; i++) {
+            let ch = inputValue.charAt(i);
+            //console.log(ch);
+            if (data.indexOf(ch.toLocaleLowerCase()) === -1) {
+              //없다.
+              //span영역에 메세지 출력
+              document.querySelector("#idSpan").innerHTML =
+                "<strong style='color:red'>아이디는 영문만 가능합니다.</strong>";
+              return; //함수(반복문)를 아예 빠져나간다. 하나만 틀려도 더 돌 필요가 없다.
+            }
+          }
+
+          //console.log(inputValue);
+        },
+        false,
+      ); //id 이벤트 등록 끝
+      ///////////////////////////////////////////////////////////////
+      //나이에 숫자 체크
+      document.querySelector("[name=age]").addEventListener(
+        "blur",
+        () => {
+          numberCheck(event.target); //호출, event.target: 이벤트를 발생시키는 텍스트
+        },
+        false,
+      );
+
+      //숫자 유무를 체크하는 함수
+      const numberCheck = (objEle) => {
+        if (isNaN(objEle.value)) {
+          //숫자가 아니니?
+          //숫자가 아니므로 인접해 있는 span 태그에 메세지 출력
+          objEle.nextElementSibling.innerHTML =
+            "<strong style='color:red'>숫자만 입력해주세요.</strong>";
+          objEle.focus();
+          objEle.value = "";
+          return true; // 숫자가 아니다.
+        } else {
+          objEle.nextElementSibling.innerHTML = "";
+          return false; //숫자이다.
+        }
+      };
+      //////////////////////////////////////////
+      //주민번호 앞 6자리 입력하면 옆으로 커서 이동
+      //이벤트 등록
+      document.querySelector("[name=jumin1]").addEventListener(
+        "keyup",
+        function () {
+          //입력한 값이 문자이면 마지막 문자를 지운다.
+          if (isNaN(event.target.value)) {
+            //숫자 아니다.
+            let str = event.target.value.substring(
+              0,
+              event.target.value.length - 1,
+            );
+            event.target.value = str;
+            return; //함수 빠져나가기
+          }
+
+          //6자리면 커서 이동
+          if (event.target.value.length === 6) {
+            event.target.nextElementSibling.focus();
+          }
+        },
+        false,
+      );
+      /////////////////////////////////////
+      //이메일은 @을 포함해야 한다
+
+      ///////////////////////////////////////////////
+      //주민번호 뒷자리 입력 후 숫자 체크 + 성별 체크
+      document.querySelector("[name=jumin2]").addEventListener(
+        "blur",
+        function () {
+          let result = numberCheck(event.target);
+          //성별 체크
+          if (!result) {
+            let ch = event.target.value.charAt(0);
+            let genderEles = document.querySelectorAll("[name=gender]");
+            if (ch === "1") genderEles[0].checked = true;
+            else genderEles[1].checked = true;
+          }
+        },
+        false,
+      );
+    </script>
+  </body>
+</html>

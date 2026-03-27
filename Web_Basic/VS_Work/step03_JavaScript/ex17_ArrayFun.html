@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Array 함수</h1>
+    <script>
+      const students = [
+        { name: "A", age: 20, state: true, score: 80 },
+        { name: "B", age: 29, state: true, score: 85 },
+        { name: "C", age: 22, state: false, score: 90 },
+        { name: "D", age: 21, state: true, score: 45 },
+        { name: "E", age: 28, state: false, score: 95 },
+      ];
+
+      //1. 점수가 90점인 학생 정보 - find()
+      // let re = students.find((student) => {
+      //   console.log(student);
+      //   return student.score === 90;
+      // });
+      // console.log(re);
+      let re = students.find((student) => student.score === 90);
+      console.log(re);
+
+      //2. 점수가 90점인 이상인 모든 학생  - filter()
+      re = students.filter((student) => student.score >= 90);
+      console.log(re);
+
+      //3. 수강중(state-true) 학생들만 골라서 배열로 만들기. - filter()
+      re = students.filter((student) => student.state);
+      console.log(re);
+
+      //4.학생 배열에서 점수만 뽑아서 배열로 만들기 - map()
+      re = students.map((student) => student.score);
+      console.log(re);
+
+      //5.학생 들중에 점수가 50점 보다 낮은 친구 있는지 없는지 체크하기-some()
+      re = students.some((student) => student.score <= 50);
+      console.log(re);
+
+      //6. 모든 학생들의 점수가 80이상인지 체크 -every()
+      re = students.every((student) => student.score >= 80);
+      console.log(re);
+
+      //7.학생들의 평균점수를 구하기 - reduce()
+      //점수를 모아서 모두 합하고 인원수로 나눈다.
+      /*console.log("---------reduce-------");
+            re = students.reduce((prev, currv) => {
+              console.log(prev);
+              console.log(currv);
+              console.log("------------------");
+              return prev + currv.score;
+            }, 0);
+            console.log(re);*/
+      re = students.reduce((prev, currv) => prev + currv.score, 0);
+      console.log(parseInt((re / students.length) * 100) / 100);
+
+      //8. 학생들의 모든 점수를 구해서 하나의  string으로 변환(map , join)
+      re = students.map((student) => student.score).join(" | ");
+      console.log(re);
+
+      //9.학생들의 모든 점수를 배열로 만들어서 50점 이상인 학생들만 뽑아서 하나의 string으로 변환
+      //(map, filter, join);
+      re = students
+        .map((student) => student.score)
+        .filter((score) => score >= 50)
+        .join(" / ");
+      console.log(re);
+
+      //10.학생들의 점수를 정렬하기. - sort()
+      //re = students.sort((s1, s2) => s1.score - s2.score);
+      re = students.toSorted((s1, s2) => s1.score - s2.score);
+      console.log(re);
+      console.log(students);
+
+      console.log("--------products---------------");
+      const products = [
+        { id: 1, name: "Laptop", price: 1200000, category: "electronics" },
+        { id: 2, name: "Phone", price: 800000, category: "electronics" },
+        { id: 3, name: "T-shirt", price: 30000, category: "clothing" },
+        { id: 4, name: "Keyboard", price: 50000, category: "electronics" },
+        { id: 5, name: "Sneakers", price: 90000, category: "clothing" },
+      ];
+
+      // 문제01 : 가격이 10만 원 이상인 첫 번째 상품을 찾아 출력하시오 – find().
+      re = products.find((products) => products.price > 100000);
+      console.log(re);
+
+      // 문제02 : 카테고리가 "clothing"인 상품들만 골라 새로운 배열을 만드시오. – filter()
+      re = products.filter((products) => products.category === "clothing");
+      console.log(re);
+
+      // 문제03 : 모든 상품 이름만 추출하여 배열로 만드시오. – map()
+      re = products.map((product) => product.name);
+      console.log(re);
+
+      // 문제04 : 전자제품 중 100만 원 이상인 상품이 하나라도 있는지 확인하시오. fiter(), some()
+      re = products
+        .filter((product) => product.category === "electronics")
+        .some((product) => product.price >= 1000000);
+      console.log(re);
+
+      // 문제05 : 모든 상품이 가격 2만 원 이상인지 확인하시오. - every()
+      re = products.every((product) => product.price >= 20000);
+      console.log(re);
+
+      // 문제06 : 상품들의 총합 금액을 구하시오. - reduce() 사용, price 누적
+      re = products.reduce((prev, currv) => prev + currv.price, 0);
+      console.log(re);
+
+      // 문제07 : 상품 가격 기준으로 오름차순 정렬된 배열을 만들되, 원본 배열도 변경되게 하시오.
+      // - sort() (주의: 원본 배열 변경됨)
+      // re = products.sort((p1, p2) => p1.price - p2.price);
+      // console.log(re);
+
+      // 문제08 : 상품 이름을 기준으로 알파벳순으로 정렬하되, 원본 배열은 그대로 유지되게 하시오.
+      // - toSorted() , localeCompare()
+      re = products.toSorted((p1, p2) => p1.name - p2.name);
+      console.log(re);
+
+      // 문제09 : 상품 배열의 처음 3개만 잘라 새 배열로 반환하시오. - slice(start, end)
+      re = products.slice(0, 3);
+      console.log(re);
+
+      // 문제10 : 상품 배열에서 id가 3인 상품을 찾아 배열에서 제거하시오. – findIndex()와 splice() 조합
+      let index = products.findIndex((product) => product.id === 3);
+      re = products.splice(index, 1);
+      console.log(products);
+    </script>
+  </body>
+</html>

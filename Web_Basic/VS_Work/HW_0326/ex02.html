@@ -13,8 +13,10 @@
         let kor = Number(prompt("국어 점수를 입력하세요."));
         let eng = Number(prompt("영어 점수를 입력하세요."));
         let mat = Number(prompt("수학 점수를 입력하세요."));
-        let tot = kor + eng + mat;
-        let avg = tot / 3;
+        let sum = kor + eng + mat;
+        let avg = sum / 3;
+        //소수점 2자리까지
+        //avg=parseInt(avg*100)/100;
 
         document.write("<caption><h1>성적표 - 1</h1></caption>");
 
@@ -34,7 +36,7 @@
         document.write(`<td>${kor}</td>`);
         document.write(`<td>${eng}</td>`);
         document.write(`<td>${mat}</td>`);
-        document.write(`<td>${tot}</td>`);
+        document.write(`<td>${sum}</td>`);
         document.write(`<td>${avg.toFixed(2)}</td>`);
 
         if (avg >= 90) document.write(`<td>수</td>`);
