@@ -38,7 +38,7 @@
         </button>
       </div>
 
-      <div id="shoeList" class="mt-3"></div>
+      <div id="shoeList" class="mt-3"><!--신발 영역--></div>
     </div>
 
     <script>
@@ -614,8 +614,8 @@
         shoeList.innerHTML = ""; // 기존 내용 초기화
 
         if (shoes.length === 0) {
-          const msg = document.createElement("p");
-          msg.className = "text-center";
+          const msg = document.createElement("p"); // <p>
+          msg.className = "text-center"; // <p class="text-center">
           msg.textContent = "조건에 맞는 신발이 없습니다.";
           shoeList.appendChild(msg);
         } else {
@@ -638,10 +638,31 @@
       }; //funcation end
 
       // 정렬 기능 - 이름으로
-
+      document.getElementById("sortName").addEventListener("click", () => {
+        const sorted = shoeData.toSorted((a, b) => {
+          a.title.localeCompare(b.title);
+        });
+        displayShoes(sorted);
+      });
       // 정렬 기능 - 닞은 가격 순
+      document
+        .getElementById("sortPriceLow")
+        .addEventListener("click", function () {
+          const sorted = shoeData.toSorted((a, b) => {
+            a.price - b.price;
+          });
+          displayShoes(sorted);
+        });
 
       // 정렬 기능 - 높은 가격 순
+      document
+        .getElementById("sortPriceHigh")
+        .addEventListener("click", function () {
+          const sorted = shoeData.toSorted((a, b) => {
+            b.price - a.price;
+          });
+          displayShoes(sorted);
+        });
 
       //로딩
       displayShoes(shoeData);

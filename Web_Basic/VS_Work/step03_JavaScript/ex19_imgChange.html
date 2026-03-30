@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <title>New Document</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+      // 요소가 만들어지기 전이므로 onload 필요
+      onload = function () {
+        //이미지를 1초마다 갱신
+        let imgName = ["monkey.gif", "lion.gif", "cat.gif", "dog.gif"];
+        let index = 0;
+        let imgChange = function () {
+          console.log(1);
+
+          document.images[0].src = "./img/" + imgName[index++];
+          if (index === imgName.length) index = 0;
+        };
+
+        //1초마다 imgChange 호출
+        let imgStop = setInterval(imgChange, 1000);
+
+        // 첫 번째 이미지 찾아서 mouseover or out
+        document.images[0].addEventListener(
+          "mouseover",
+          function () {
+            if (imgStop) clearInterval(imgStop);
+          },
+          false,
+        );
+        document.images[0].addEventListener(
+          "mouseout",
+          function () {
+            imgStop = setInterval(imgChange, 1000);
+          },
+          false,
+        );
+
+        ////////////////////////////////////////////////
+        document.querySelectorAll("span").forEach((spanEle) => {
+          //console.log(spanEle);
+          spanEle.addEventListener(
+            "click",
+            function () {
+              //현재 클릭된 span에 따라 첫 번째 이미지 src 속성을 변경한다.
+              //자바 스크립트에서는 img들이 여러 개면 배열처럼 관리된다. images[]
+              //console.log(this);
+              //console.log(event.target);
+
+              //let imgName = this.getAttribute("data-img-name");
+              let imgName = this.dataset.imgName;
+              //dataset을 사용할 때 data-는 생략, -은 camel 표기법으로 변경
+              document.images[0].src = "./img/" + imgName;
+            },
+            false,
+          );
+        });
+        /////////////////////////////////////////////////////
+        //이미지 위에 over or out
+        document
+          .querySelectorAll("[class='imgOverOut']")
+          .forEach(function (imgEle) {
+            imgEle.addEventListener(
+              "mouseover",
+              () => {
+                event.target.width *= 2;
+                event.target.height *= 2;
+              },
+              false,
+            );
+            imgEle.addEventListener(
+              "mouseout",
+              function () {
+                event.target.width /= 2;
+                event.target.height /= 2;
+              },
+              false,
+            );
+          });
+      }; //onload 끝
+    </script>
+  </head>
+
+  <body>
+    <img src="img/cat.gif" /><br /><br />
+
+    <span data-img-name="monkey.gif">[ 원숭이 ]</span> &nbsp;&nbsp;
+    <span data-img-name="lion.gif">[ 사자 ]</span> &nbsp;&nbsp;
+    <span data-img-name="cat.gif">[ 고양이 ]</span> &nbsp;&nbsp;
+    <span data-img-name="dog.gif">[ 강아지 ]</span> &nbsp;&nbsp;
+
+    <hr color="red" />
+
+    <img
+      src="img/monkey.gif"
+      width="70"
+      height="60"
+      class="imgOverOut"
+    />&nbsp;&nbsp;
+    <img
+      src="img/cat.gif"
+      width="70"
+      height="60"
+      class="imgOverOut"
+    />&nbsp;&nbsp;
+    <img
+      src="img/dog.gif"
+      width="70"
+      height="60"
+      class="imgOverOut"
+    />&nbsp;&nbsp;
+    <img
+      src="img/lion.gif"
+      width="70"
+      height="60"
+      class="imgOverOut"
+    />&nbsp;&nbsp;
+  </body>
+</html>

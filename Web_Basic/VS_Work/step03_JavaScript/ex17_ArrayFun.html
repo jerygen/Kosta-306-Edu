@@ -86,15 +86,15 @@
       ];
 
       // 문제01 : 가격이 10만 원 이상인 첫 번째 상품을 찾아 출력하시오 – find().
-      re = products.find((products) => products.price > 100000);
+      re = products.find((products) => products.price >= 100000); //객체
       console.log(re);
 
       // 문제02 : 카테고리가 "clothing"인 상품들만 골라 새로운 배열을 만드시오. – filter()
-      re = products.filter((products) => products.category === "clothing");
+      re = products.filter((products) => products.category === "clothing"); //배열
       console.log(re);
 
       // 문제03 : 모든 상품 이름만 추출하여 배열로 만드시오. – map()
-      re = products.map((product) => product.name);
+      re = products.map((product) => product.name); // 또 다른 형태의 배열(자료구조가 다름)
       console.log(re);
 
       // 문제04 : 전자제품 중 100만 원 이상인 상품이 하나라도 있는지 확인하시오. fiter(), some()
@@ -117,8 +117,8 @@
       // console.log(re);
 
       // 문제08 : 상품 이름을 기준으로 알파벳순으로 정렬하되, 원본 배열은 그대로 유지되게 하시오.
-      // - toSorted() , localeCompare()
-      re = products.toSorted((p1, p2) => p1.name - p2.name);
+      // - toSorted() , localeCompare() // 원래라면 이름은 부등호로 비교해야 함.
+      re = products.toSorted((p1, p2) => p1.name.localCompare(p2.name));
       console.log(re);
 
       // 문제09 : 상품 배열의 처음 3개만 잘라 새 배열로 반환하시오. - slice(start, end)
@@ -126,8 +126,8 @@
       console.log(re);
 
       // 문제10 : 상품 배열에서 id가 3인 상품을 찾아 배열에서 제거하시오. – findIndex()와 splice() 조합
-      let index = products.findIndex((product) => product.id === 3);
-      re = products.splice(index, 1);
+      let index = products.findIndex((product) => product.id === 3); //없으면 -1을 반환
+      if (index != -1) re = products.splice(index, 1);
       console.log(products);
     </script>
   </body>
