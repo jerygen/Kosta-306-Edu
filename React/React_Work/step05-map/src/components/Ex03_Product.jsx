@@ -1,0 +1,43 @@
+import Item from "./Item";
+import a from "../assets/images/a.png";
+import b from "../assets/images/b.jpg";
+import c from "../assets/images/c.png";
+import d from "../assets/images/d.jpg";
+
+import "./Ex03_Product.css";
+
+const Ex03_Product = () => {
+  const items = [
+    { id: 1, imgName: a, text: "당도선별 11brix", price: "25,000" },
+    { id: 2, imgName: b, text: "국내산 프리미엄", price: "35,000" },
+    { id: 3, imgName: c, text: "13brix 100%국내산", price: "28,000" },
+    { id: 4, imgName: d, text: "고당도 참박수박", price: "20,000" },
+    { id: 5, imgName: c, text: "13brix 100%국내산", price: "28,000" },
+    { id: 6, imgName: d, text: "고당도 참박수박", price: "20,000" },
+  ];
+  console.log(items);
+  let no = 10;
+  const test = {
+    seq: [{ good: 1 }, { good: 2 }, { good: 3 }],
+    no,
+  };
+  return (
+    <div id="product">
+      <h3>오늘의 상품</h3>
+      <p>새로운 상품을 만나보세요</p>
+      {/* {items.map((item) => (
+        <Item
+          key={item.id}
+          imgName={item.imgName}
+          text={item.text}
+          price={item.price}
+        />
+      ))} */}
+      {items.map((item) => (
+        <Item key={item.id} {...item} {...test} />
+      ))}
+    </div>
+  );
+};
+
+export default Ex03_Product;
