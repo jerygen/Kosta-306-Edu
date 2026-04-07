@@ -20,7 +20,11 @@ function CommentList() {
   return (
     <>
       {comments.map((comment) => (
-        <Comment name={comment.name} comment={comment.comment} />
+        <Comment
+          name={comment.name}
+          comment={comment.comment}
+          key={comment.name}
+        />
       ))}
     </>
   );
