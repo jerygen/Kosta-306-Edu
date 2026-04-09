@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Promise 란? - 자바스크립트 내장 객체(new 생산)</h1>
+    <script>
+      console.log("-----시작-------");
+      const promise = new Promise((resolve, reject) => {
+        console.log("Promise callback 함수");
+
+        setTimeout(() => {
+          //resolve("성공했어요");
+          resolve([
+            { id: 1, name: "hee" },
+            { id: 2, name: "jin" },
+          ]);
+          reject("실패했어요.");
+        }, 3000);
+      });
+
+      console.log(promise);
+
+      promise
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log("err = " + err);
+        })
+        .finally(() => {
+          console.log("finally는 항상 실행됨");
+        });
+
+      console.log("-----끝-------");
+    </script>
+  </body>
+</html>
