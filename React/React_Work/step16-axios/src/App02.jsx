@@ -36,13 +36,13 @@ function App02() {
       console.log(err);
     }
   };
-
+  //////////////////////////////////////////////
   const insertUser = async function () {
     try {
       const result = await axiosInstance({
         method: "POST",
         url: "/users",
-        data: { name: "아이유", email: "789@gmail.com", age: "33" },
+        data: { name: "아이유", email: "789@gmail.com", age: 33 },
       });
       console.log(result.data);
     } catch (err) {
@@ -78,7 +78,7 @@ function App02() {
     try {
       const result = await axiosInstance({
         method: "GET",
-        url: "/users/1",
+        url: "/users/2",
       });
       console.log(result.data);
     } catch (err) {
@@ -97,7 +97,7 @@ function App02() {
       console.log(err);
     }
   };
-
+  ///////////////////////////////////////////
   return (
     <>
       <h1>Axios Test</h1>

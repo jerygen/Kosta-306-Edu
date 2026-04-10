@@ -33,15 +33,14 @@
     {
       "name": "아이유",
       "email": "789@gmail.com",
-      "age": "33",
+      "age": 33,
       "id": "0gTrHyVTvyc"
     },
     {
       "name": "아이유",
       "email": "789@gmail.com",
-      "age": "33",
+      "age": 33,
       "id": "MVtyMglczZ0"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
