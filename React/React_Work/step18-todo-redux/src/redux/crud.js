@@ -41,6 +41,8 @@ const todoSlice = createSlice({
       state.mockData = state.mockData.filter(
         (todo) => todo.id !== action.payload,
       );
+      //const index = state.mockData.findIndex((item)=>item.id === action.payload)
+      //state.mockData.splice(index, i) -> index 요소, 두 번째 인자는 삭제할 요소 개수
     },
   },
 });

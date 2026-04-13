@@ -2,10 +2,10 @@ import TodoItem from "./TodoItem";
 import "./List.css";
 import { useState } from "react";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 function List() {
-  let todos = useSelector((state) => state.todoCRUD.mockData);
+  let todos = useSelector((state) => state.todoCRUD.mockData, shallowEqual);
   const [search, setSearch] = useState("");
 
   const getFilterData = () => {
