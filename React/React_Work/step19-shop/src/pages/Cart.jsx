@@ -1,18 +1,19 @@
-import React from 'react';
- import { useDispatch, useSelector,shallowEqual } from "react-redux";
- import { addCount, decreaseCount, deleteItem, sortName } from "../store.js";
-import { Table , Button } from 'react-bootstrap';
- import { Link } from 'react-router-dom';
+import React from "react";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { addCount, decreaseCount, deleteItem, sortName } from "../store.js";
+import { Table, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-     // 객체를 반환하므로 매번 새로운 객체가 생성되어 리렌더링이 발생할 수 있다. shallowEqual을 써서 불필요한 리렌더 방지 가능
-   const  cart = useSelector( (state) =>{
-     return state.cart} , shallowEqual);
+  // 객체를 반환하므로 매번 새로운 객체가 생성되어 리렌더링이 발생할 수 있다. shallowEqual을 써서 불필요한 리렌더 방지 가능
+  const cart = useSelector((state) => {
+    return state.cart;
+  }, shallowEqual);
   // dispatch는  store.js 로 요청보내주는 함수
 
   let dispatch = useDispatch();
 
-   const smallProdcuctStyle = {
+  const smallProdcuctStyle = {
     border: "1px solid #ddd",
     width: "100px",
     height: "80px",
@@ -27,10 +28,7 @@ const Cart = () => {
       <div className="container">
         <div className="row">
           <div className="col-sm-12" style={{ textAlign: "center" }}>
-            <h5 style={{ padding: "50px" }}>
-              장바구니
-            </h5>
-      
+            <h5 style={{ padding: "50px" }}>장바구니</h5>
             <Table>
               <thead>
                 <tr>
@@ -48,11 +46,8 @@ const Cart = () => {
                     <td style={textverticalAlign}>{id}</td>
                     {/* 이미지 클릭 시 해당 상품 상세 페이지로 이동 */}
                     <td>
-                        <Link to={`/detail/${id}`}>
-                        <img
-                          src={`img/${imgurl}`}
-                          style={smallProdcuctStyle}
-                        />
+                      <Link to={`/detail/${id}`}>
+                        <img src={`img/${imgurl}`} style={smallProdcuctStyle} />
                       </Link>
                     </td>
                     {/* 상품명, 수량 보여주기 */}
@@ -84,7 +79,7 @@ const Cart = () => {
                         onClick={() => {
                           dispatch(deleteItem(id));
                         }}
-                           variant="outline-danger"
+                        variant="outline-danger"
                       >
                         상품삭제
                       </Button>
@@ -107,5 +102,5 @@ const Cart = () => {
       </div>
     </>
   );
- }
- export default Cart;
+};
+export default Cart;

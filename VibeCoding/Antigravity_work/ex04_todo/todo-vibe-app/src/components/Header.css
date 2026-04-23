@@ -1,0 +1,16 @@
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-size: 1.2rem;
+  color: #007bff;
+  font-weight: bold;
+}

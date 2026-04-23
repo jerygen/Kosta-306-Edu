@@ -1,0 +1,31 @@
+.list {
+  margin-top: 20px;
+}
+
+.list h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.search {
+  margin-bottom: 10px;
+}
+
+.search input {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.stats {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.todo-list {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
