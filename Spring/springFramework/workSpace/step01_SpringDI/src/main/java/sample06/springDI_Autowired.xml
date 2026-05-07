@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 객체 생성 + 주입 -->
+	
+	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" /> -->
+	
+	<context:property-placeholder location="classpath:*.properties"/>
+	
+	<!-- 
+		Activates various annotations to be detected in bean classes: Spring's @Required and @Autowired, as well as 
+		JSR 250's @PostConstruct, @PreDestroy and @Resource (if available), JAX-WS's @WebServiceRef (if 
+		available), EJB 3's @EJB (if available), and JPA's @PersistenceContext and @PersistenceUnit (if available). 
+		Alternatively, you may choose to activate the individual BeanPostProcessors for those annotations. Note: This 
+		tag does not activate processing of Spring's @Transactional or EJB 3's @TransactionAttribute annotation. 
+		Consider the use of the <tx:annotation-driven> tag for that purpose. See javadoc for 
+		org.springframework.context.annotation.AnnotationConfigApplicationContext for information on code-based 
+		alternatives to bootstrapping annotation-driven support.
+	 -->
+	 <!-- 
+		context:xxx 는 spring IoC 컨테이너와 관련된 설정을 간소화해주는 역할을 한다.
+		애플리케이션의 번들을 자동으로 스캔하고 빈으로 등록하는 작업을 손쉽게 해주는 역할을 한다.
+	 -->
+	<context:annotation-config />
+	
+ 	
+	<bean class="sample06.EmpDTO" id="empDTO" >
+		<property name="empno" value="100"></property>
+	</bean>
+	
+	<bean class="sample06.EmpDTO" id="dto2" >
+		<property name="empno" value="200"></property>
+	</bean>
+	
+	<bean class="sample06.EmpService" id="service" />
+	
+	<bean class="sample06.EmpController" id="controller" />
+
+
+</beans>

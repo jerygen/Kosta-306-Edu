@@ -9,7 +9,9 @@
 		<constructor-arg value="JSP"/>
 		<constructor-arg value="장희정"/>
 		<constructor-arg value="3000" type="int"/>
-		<constructor-arg value="2024-4-25"/>
+		<constructor-arg>
+			<value>2024-4-25</value>
+		</constructor-arg>
 	</bean>
 	
 	<bean class="sample03.BookController" id="controller">

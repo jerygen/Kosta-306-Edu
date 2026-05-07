@@ -1,8 +1,8 @@
 package sample03;
 
 public class BookController {
-	private BookDAOImpl bookDAO;
-	private BookVo bookVo;
+	private BookDAOImpl bookDAO;//null
+	private BookVo bookVo;//null
 	
 	public BookController() {
 		System.out.println("BookController() 호출");
