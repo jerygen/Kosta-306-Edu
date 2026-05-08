@@ -1,5 +1,5 @@
 package sample08;
 
 public interface BookDAO {
-	void save(EmailSender emailSender, MessageSender messageSender, BookDTO bookDTO, BookDTO bookDTO2);
+  void save(EmailSender emailSender, MessageSender messageSender, BookDTO book1, BookDTO book2);
 }

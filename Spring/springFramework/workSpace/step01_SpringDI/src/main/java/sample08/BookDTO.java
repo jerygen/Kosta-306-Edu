@@ -1,15 +1,34 @@
 package sample08;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
-@NoArgsConstructor
+@ToString(exclude= {"writer", "date"})
+//@Data //@Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode, 권장하지 않음
+@Component
+@Scope("prototype")
 public class BookDTO {
+	
+	@Value("spring")
 	private String subject;
-	private String Writer;
+	
+	@Value("희정")
+	//@Getter
+	private String writer;
+	
+	@Value("25000")
 	private int price;
+	
+	@Value("2026-05-08")
 	private String date;
+	
 }

@@ -1,4 +1,4 @@
-package sample08;
+package hw01;
 
 import org.springframework.stereotype.Component;
 
