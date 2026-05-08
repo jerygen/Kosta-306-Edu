@@ -1,4 +1,4 @@
-package hw01;
+package sample08;
 
 public class MainApp {
 

@@ -1,4 +1,4 @@
-package hw01;
+package sample08;
 
 public interface BookDAO {
 	void save(EmailSender emailSender, MessageSender messageSender, BookDTO bookDTO, BookDTO bookDTO2);
