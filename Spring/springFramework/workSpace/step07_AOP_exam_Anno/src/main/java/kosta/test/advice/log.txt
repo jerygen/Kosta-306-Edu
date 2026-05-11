@@ -1,0 +1,19 @@
+start호출 인수의 개수  =  1 / 리턴값  =  null / 총 소요 ns  =  114200ns
+pause호출 인수의 개수  =  0 / 리턴값  =  하이 / 총 소요 ns  =  67200ns
+stop호출 인수의 개수  =  0 / 리턴값  =  null / 총 소요 ns  =  71700ns
+start호출 인수의 개수  =  1 / 리턴값  =  null / 총 소요 ns  =  82100ns
+pause호출 인수의 개수  =  0 / 리턴값  =  하이 / 총 소요 ns  =  40700ns
+stop호출 인수의 개수  =  0 / 리턴값  =  null / 총 소요 ns  =  58400ns
+start호출 인수의 개수  =  1 / 리턴값  =  null / 총 소요 ns  =  52500ns
+pause호출 인수의 개수  =  0 / 리턴값  =  하이 / 총 소요 ns  =  54800ns
+stop호출 인수의 개수  =  0 / 리턴값  =  null / 총 소요 ns  =  40100ns
+end....start호출 인수의 개수  =  1 / 리턴값  =  null / 총 소요 ns  =  152800ns
+pause호출 인수의 개수  =  0 / 리턴값  =  하이 / 총 소요 ns  =  72600ns
+stop호출 인수의 개수  =  0 / 리턴값  =  null / 총 소요 ns  =  52700ns
+start호출 인수의 개수  =  1 / 리턴값  =  null / 총 소요 ns  =  60700ns
+pause호출 인수의 개수  =  0 / 리턴값  =  하이 / 총 소요 ns  =  64000ns
+stop호출 인수의 개수  =  0 / 리턴값  =  null / 총 소요 ns  =  68100ns
+start호출 인수의 개수  =  1 / 리턴값  =  null / 총 소요 ns  =  91800ns
+pause호출 인수의 개수  =  0 / 리턴값  =  하이 / 총 소요 ns  =  59200ns
+stop호출 인수의 개수  =  0 / 리턴값  =  null / 총 소요 ns  =  55200ns
+end....

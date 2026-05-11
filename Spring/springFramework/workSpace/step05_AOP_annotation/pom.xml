@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>step01_DI</groupId>
-  <artifactId>step01_DI</artifactId>
+  <groupId>step05_AOP_annotation</groupId>
+  <artifactId>step05_AOP_annotation</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>step01_DI</name>
+  <name>step05_AOP_annotation</name>
   <url>http://maven.apache.org</url>
 
   <properties>
