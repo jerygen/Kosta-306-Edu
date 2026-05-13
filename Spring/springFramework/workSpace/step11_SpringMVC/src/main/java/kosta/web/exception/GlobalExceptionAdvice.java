@@ -29,4 +29,9 @@ public class GlobalExceptionAdvice {
 		return mv;	
 	}
 	
+//	@ExceptionHandler(BasicException.class)
+//	public ModelAndView error(BasicException e) {
+//		return 
+//	}
+	
 }
