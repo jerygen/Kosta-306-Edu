@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import web.mvc.dao.ProductDAO;
 import web.mvc.dto.ProductDTO;
+import web.mvc.exception.ErrorCode;
 import web.mvc.exception.MyErrorException;
 
 @Service
@@ -23,26 +24,38 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int insert(ProductDTO productDTO) throws MyErrorException {
-		
-		return 0;
+		int price = productDTO.getPrice();
+		if(price < 1000 || price > 10000) {
+			throw new MyErrorException(ErrorCode.INVALID_PRICE);
+		}
+		int result = productDAO.insert(productDTO);
+		return result;
 	}
 
 	@Override
 	public int delete(String code) throws MyErrorException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = productDAO.delete(code);
+		
+		if(result == 0)
+			throw new MyErrorException(ErrorCode.INVALID_PRODUCT_CODE);
+		
+		return 1;
 	}
 
 	@Override
 	public ProductDTO selectByCode(String code) throws MyErrorException {
-		// TODO Auto-generated method stub
-		return null;
+		ProductDTO product = productDAO.selectByCode(code);
+		if(product == null)
+			throw new MyErrorException(ErrorCode.INVALID_PRODUCT_CODE);
+		
+		return product;
 	}
 
 	@Override
 	public int updateByCode(ProductDTO productDTO) throws MyErrorException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = productDAO.updateByCode(productDTO);
+		if(result==0) throw new MyErrorException(ErrorCode.FAILD_UPDATE);
+		return 1;
 	}
 
 }

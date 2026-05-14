@@ -26,7 +26,7 @@
 	 <tr>
 	   <th colspan="2">
 	       <%-- <input type="hidden" name="code"  value="${product.code}"> --%>
-	     <input type="submit" value="수정하기하기">
+	     <input type="submit" value="수정하기">
 	     <input type="reset" value="취소하기">
 	   </th>
 	 </tr>

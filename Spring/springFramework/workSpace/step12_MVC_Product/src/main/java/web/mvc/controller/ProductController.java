@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +53,58 @@ public class ProductController {
 	/**
 	 * 상품 등록
 	 * */
+	@PostMapping("/products")
+	public String insert(ProductDTO productDTO) {
+		productService.insert(productDTO);
+		return "redirect:/";
+	}
+	
+	/**
+	 * 상품 상세보기
+	 * */
+	@RequestMapping("/read")
+	public ModelAndView selectByCode(@RequestParam("code") String code) {
+		ProductDTO product = productService.selectByCode(code);
+				
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("read");
+		mv.addObject("product", product );
+		
+		return mv;	
+	}
+	
+	/**
+	 * 상품 삭제
+	 * */
+	@RequestMapping("/del/{code}")
+	public String delete(@PathVariable String code) {
+		productService.delete(code);
+		return "redirect:/";
+	}
+	
+	/**
+	 * 상품 수정 폼
+	 * */
+	@RequestMapping("/updateForm/{code}")
+	public ModelAndView url2(@PathVariable("code") String code) {
+		ProductDTO product = productService.selectByCode(code);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("updateForm");
+		mv.addObject("product", product);
+		
+		return mv;
+	}
+	
+	/**
+	 * 상품 수정
+	 * */
+	@RequestMapping("/products/{code}")
+	public String update(@PathVariable String code, ProductDTO productDTO) {
+		productDTO.setCode(code);		
+		productService.updateByCode(productDTO);
+		return "redirect:/read?code="+code;
+	}
 	
 	
 }
