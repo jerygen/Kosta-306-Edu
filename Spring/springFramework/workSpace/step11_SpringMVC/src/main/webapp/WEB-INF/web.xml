@@ -4,21 +4,25 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
-<!-- 	<context-param>
+ 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
-	</context-param> -->
+	</context-param>
 	
-	<!-- Creates the Spring Container shared by all Servlets and Filters -->
-<!-- 	<listener>
+	<!-- Creates the Spring Container shared by all Servlets and Filters
+		 : Root WebApplicationContext를 초기화 하면서 /WEB-INF/applicationContext.xml 찾는다. (bean 설정)
+		 : 만약 위치와 이름을 변경하고 싶다면, context-param이라는 태그에서 contextConfigLocation 이름에 해당하는 value를 설정하면 된다.
+	
+	 -->
+ 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
- -->
+
 	<!-- Processes application requests
 		contextConfigLocation 정보는 spring bean configuration의 위치와 파일이름을 변경할 때 설정하는 init-param	
 	 -->
 	 
-	 <!-- post 방식 한글 인코딩 처리 ctrl+shift+f:정렬 -->
+	 <!-- post 방식 한글 인코딩 처리, ctrl+shift+f:정렬 -->
 	<filter>
 		<filter-name>charaterEncoding</filter-name>
 		<filter-class>
@@ -53,5 +57,26 @@
 		<url-pattern>*.do</url-pattern>
 		<url-pattern>/blog/*</url-pattern>
 	</servlet-mapping>
+	
+	
+	<!-- 관리자 전용 진입점 Controller(DispatcherServlet 등록) -->
+	<servlet>
+		<servlet-name>adminServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/spring/appServlet/admin-context.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>adminServlet</servlet-name>
+		<url-pattern>*.admin</url-pattern>
+	</servlet-mapping>
+	
 
 </web-app>

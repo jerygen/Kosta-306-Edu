@@ -15,40 +15,39 @@ import web.mvc.exception.MyErrorException;
 public class ProductServiceImpl implements ProductService {
 	
 	private final ProductDAO productDAO;
+
+
 	
 	private final static int MIN_PRICE=1000;
 	private final static int MAX_PRICE=10000;
 	
 	@Override
 	public List<ProductDTO> select() {
-		
 		return productDAO.select();
 	}
 
 	@Override
 	public int insert(ProductDTO productDTO) throws MyErrorException {
-		int price = productDTO.getPrice();
-		if(price < MIN_PRICE || price > MAX_PRICE) {
+		//가격의 범위를 체크
+		if(productDTO.getPrice() < MIN_PRICE || productDTO.getPrice() > MAX_PRICE) {
 			throw new MyErrorException(ErrorCode.INVALID_PRICE);
 		}
+		
 		int result = productDAO.insert(productDTO);
+		
 		return result;
 	}
 
 	@Override
 	public int delete(String code) throws MyErrorException {
 		int result = productDAO.delete(code);
-		
-		if(result == 0)
-			throw new MyErrorException(ErrorCode.INVALID_PRODUCT_CODE);
-		
-		return 1;
+		return result;
 	}
 
 	@Override
-	public ProductDTO selectByCode(String code) throws MyErrorException {
+	public ProductDTO selectByCode(String code)throws MyErrorException {
 		ProductDTO product = productDAO.selectByCode(code);
-		if(product == null)
+		if(product==null)
 			throw new MyErrorException(ErrorCode.INVALID_PRODUCT_CODE);
 		
 		return product;
@@ -56,9 +55,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int updateByCode(ProductDTO productDTO) throws MyErrorException {
-		int result = productDAO.updateByCode(productDTO);
-		if(result==0) throw new MyErrorException(ErrorCode.FAILD_UPDATE);
-		return 1;
+		return productDAO.updateByCode(productDTO);
 	}
-
 }

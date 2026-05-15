@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,10 @@ public class ProductController {
 	 * 상품 등록
 	 * */
 	@PostMapping("/products")
-	public String insert(ProductDTO productDTO) {
+	public String insert(@ModelAttribute ProductDTO productDTO) { //@ModelAttribute 생략 가능
+		//간단한 방어체계(xss 같은 공격)
+		productDTO.setDetail(productDTO.getDetail().replace("<","&lt"));
+		
 		productService.insert(productDTO);
 		return "redirect:/";
 	}
@@ -67,9 +71,9 @@ public class ProductController {
 		ProductDTO product = productService.selectByCode(code);
 				
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("read");
+		mv.setViewName("read"); 
 		mv.addObject("product", product );
-		
+		//return new ModelAndView("read", "product", product);
 		return mv;	
 	}
 	
@@ -100,10 +104,10 @@ public class ProductController {
 	 * 상품 수정
 	 * */
 	@RequestMapping("/products/{code}")
-	public String update(@PathVariable String code, ProductDTO productDTO) {
+	public String update(@PathVariable String code,@ModelAttribute("product") ProductDTO productDTO) {
 		productDTO.setCode(code);		
 		productService.updateByCode(productDTO);
-		return "redirect:/read?code="+code;
+		return "read";
 	}
 	
 	
