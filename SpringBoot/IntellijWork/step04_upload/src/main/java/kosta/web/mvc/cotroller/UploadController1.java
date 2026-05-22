@@ -16,7 +16,7 @@ import java.io.IOException;
 @Controller
 @Slf4j
 public class UploadController1 {
-	@Value("${file.upload-dir}")
+	@Value("${file.upload-dir}") //기본값 주입, properties 파일을 참고
 	private String path;
 
 	@RequestMapping("/uploadForm")

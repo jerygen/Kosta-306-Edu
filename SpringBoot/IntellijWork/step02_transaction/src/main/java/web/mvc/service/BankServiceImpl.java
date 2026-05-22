@@ -3,6 +3,8 @@ package web.mvc.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import web.mvc.domain.Bank;
 import web.mvc.dto.RequestTransferDTO;
@@ -19,7 +21,7 @@ public class BankServiceImpl implements  BankService{
 
     private final BankRepository bankRepository; //Spring Data JPA구현객체를 생성해서 주입
 
-    @Transactional(rollbackFor = BasicException.class)
+    @Transactional(rollbackFor = BasicException.class, propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
     //@Transactional
     @Override
     public int transfer(RequestTransferDTO requestTransferDTO) throws BasicException {
@@ -40,10 +42,11 @@ public class BankServiceImpl implements  BankService{
             throw new BasicException(ErrorCode.FAILED_MAXIMUM);
         }
 
+        System.out.println("----------end----------");
         return 1;
     }
 
-    //검색
+    //검색, 읽기전용 옵션
     @Transactional(readOnly = true)
     public List<Bank> findAll(){
         return bankRepository.findAll();
