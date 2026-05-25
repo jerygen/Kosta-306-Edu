@@ -44,7 +44,7 @@ public class Member extends BaseEntity {
     @ElementCollection
     @CollectionTable(name = "member_hobby", joinColumns = @JoinColumn(name = "member_id"))
     @Column(name = "hobby")
-    private List<String> hobbies = new ArrayList<>(); //회원 한 명이 여러 개의 취미를 가질 수 있음
+    private List<String> hobbies = new ArrayList(); //회원 한 명이 여러 개의 취미를 가질 수 있음
     
     //주소
     @ElementCollection //테이블 생성되고 1 : 다 관계

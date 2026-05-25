@@ -60,9 +60,9 @@ public class FreeBoard { //db에 free_board
 	 * cascade sms  Entity 의 상태변화가 생기면 연관관계 있는
 	 *  Entity도 상태변화를 전이시키는 옵션
 	 * */
-	//@OneToMany(mappedBy = "freeBoard" , cascade = CascadeType.ALL) //  지연로딩
-	/*@OneToMany(mappedBy = "freeBoard") //  지연로딩
-	private List<Reply> repliesList;*/
+	@OneToMany(mappedBy = "freeBoard" , cascade = CascadeType.ALL) //  지연로딩
+	//@OneToMany(mappedBy = "freeBoard") //  지연로딩
+	private List<Reply> repliesList;
 	
 	
 	public FreeBoard(Long bno) {
