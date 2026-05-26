@@ -11,7 +11,6 @@ import web.mvc.exception.ErrorCode;
 import web.mvc.repository.FreeBoardRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
