@@ -74,6 +74,14 @@ public class SecurityConfig {
                          * 각 역할은 ROLE_로 시작하면 안 됨. 내부에서 자동으로 붙기 때문이다.
                          * */
                         .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers(
+                                "/v3/api-docs",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
                         .anyRequest().authenticated());
 
         //로그인 필터 등록
