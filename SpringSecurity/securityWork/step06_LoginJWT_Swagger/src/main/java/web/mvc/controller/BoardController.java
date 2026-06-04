@@ -1,11 +1,10 @@
 package web.mvc.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,7 +20,6 @@ import web.mvc.exception.DMLException;
 import web.mvc.exception.ErrorCode;
 import web.mvc.security.CustomMemberDetails;
 import web.mvc.service.BoardService;
-import web.mvc.service.BoardServiceImpl;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -38,6 +36,7 @@ public class BoardController {
 	* 전체 게시물 조회
 	* */
 	@GetMapping("/boards")
+	@Operation(summary = "전체검색", description = "board 모든 게시물 조회하기")
 	public ResponseEntity<?> findAll(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		log.info("authentication = {}" , authentication);
@@ -75,6 +74,7 @@ public class BoardController {
 	 * 글번호에 해당하는 게시물 조회
 	 * */
 	@GetMapping("/boards/{id}")
+	@Operation(summary = "게시물 조회", description = "글번호에 해당하는 게시물 조회")
 	public ResponseEntity<?> findById(@PathVariable Long id){
 		Board board = boardService.findBoard(id);
 
@@ -88,6 +88,7 @@ public class BoardController {
 	 * */
 	//@PostMapping("/boards/board")
 	@PostMapping("/boards")
+	@Operation(summary = "게시물 등록")
 	public ResponseEntity<?> save(@RequestBody BoardReq board , @AuthenticationPrincipal CustomMemberDetails customMemberDetails){
 		log.info("board ={}", board);
 		log.info("customMemberDetails.getMember().getMemberNo() ={}", customMemberDetails.getMember().getMemberNo());
@@ -102,6 +103,7 @@ public class BoardController {
 	 * 글번호에 해당하는 게시물 수정
 	 */
 	@PutMapping("/boards/{id}")
+	@Operation(summary = "게시물 수정", description = "글번호에 해당하는 게시물 수정")
 	public ResponseEntity<?> update(@PathVariable Long id,@RequestBody BoardReq board){
 		System.out.println("id = " + id);
 
@@ -121,6 +123,7 @@ public class BoardController {
 	 * 글번호에 해당하는 게시물 삭제
 	 * */
 	@DeleteMapping("/boards/{id}")
+	@Operation(summary = "게시물 삭제", description = "글번호에 해당하는 게시물 삭제")
 	public ResponseEntity<?> delete(@PathVariable Long id){		
 		return new ResponseEntity<>(boardService.deleteBoard(id),HttpStatus.OK);
 	}

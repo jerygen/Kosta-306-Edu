@@ -36,7 +36,7 @@ public class SwaggerConfig{
         return new Info() 
                 .title("Spring Boot REST API Member Board Security Specifications")
                 .description("Specification") 
-                .contact(new Contact().name("Heejung Jang").email("8253jang@daum.net")) 
+                .contact(new Contact().name("Miyeon Kim").email("myksphone2001@gmail.com"))
                 .version("1.0.0"); 
     }
 
